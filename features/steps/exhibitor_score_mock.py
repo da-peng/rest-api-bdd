@@ -1,6 +1,5 @@
 # encoding=utf-8
 
-import requests
 from behave import *
 
 from features.utils.http_util import  *
