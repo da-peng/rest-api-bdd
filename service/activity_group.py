@@ -65,3 +65,14 @@ def get_product_info_by_type(db_name,tenant_code, product_type):
     connect.close()
     return product_info
 
+if __name__ == '__main__':
+    # 更新所有已经过期的活动，的状态
+    db_name = 'uat_msa_marketing'
+    tenant_code = 'baiyang'
+    product_info = {}
+    connect = DbConnect(db_name)
+    connect.update(" UPDATE `activity_group` SET `status` = 'DELETE' "
+                   "WHERE activity_end_time < now() and tenant_code = \'"+tenant_code+"\'")
+
+
+

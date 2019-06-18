@@ -27,6 +27,11 @@ class DbConnect(object):
         self.cur.close()
         return res
 
+    def update(self, sql):
+        self.cur = self.conn.cursor()
+        self.cur.execute(sql)
+        self.cur.close()
+
     def close(self):
         if self.conn.is_connected():
             self.conn.close()
