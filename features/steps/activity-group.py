@@ -5,22 +5,29 @@ from service.activity_group import *
 from utils.http_util import HttpUtils
 from utils.file_manage import add
 from utils.log_manage import Log as log
+from random import *
+import re
 
 postByToken = HttpUtils().postByToken
 post = HttpUtils().post
 
 
-tenant_code = 'baiyang'
-db_name = 'uat_msa_store'
-
-
 @Given("访问创建拼团活动接口 {path}")
 def step_impl(context, path):
+    path_list = re.split('{|}', path)
+    path_list[1] = context.tenant_code
+    path = ''.join(path_list)
+
+    db_name = 'msa_store'
     context.url = context.host + path
+    context.db_name = context.db_prefix + db_name
 
 
 @Given("创建{nums}个活动；活动信息{product_type}&{groupDurationHours}&{groupCompletePeoples}&{activityProductLimit}")
 def step_impl(context, nums, product_type, groupDurationHours, groupCompletePeoples, activityProductLimit):
+    tenant_code = context.tenant_code
+    db_name = context.db_name
+
     activity_name_list = []
     product_info = get_product_info_by_type(db_name, tenant_code, product_type)
     log.debug('{0}'.format(product_info))
@@ -31,26 +38,32 @@ def step_impl(context, nums, product_type, groupDurationHours, groupCompletePeop
 
     for i in range(int(nums)):
         current_time = str(getCurrentTime())
-        activity_name = "拼团_" + get_time_stamp()
+        activity_name = "拼__团" + get_time_stamp()
         end_time = str(getEndTime())
 
-        product_id = product_list[i]
-        sku_id = product_info[product_id][0]  # 取第一个 一个商品ID会有多个SKU 都取第一个
-        # product_id, sku_id = product_info[i]
+        product_id = choice(product_list)
+        # sku_id = product_info[product_id][0]  # 取第一个 一个商品ID会有多个SKU 都取第一个
+
+        skuParamList = []
+        for i in product_info[product_id]:
+            skuParam = {
+                "skuId": i,
+                "activityPrice": randint(0,100)/10
+            }
+            skuParamList.append(skuParam)
+
+            # product_id, sku_id = product_info[i]
 
         response = postByToken({
             "addActivityProductList": [{
-                "product_id": product_id,
-                "skuParamList": [{
-                    "sku_id": sku_id,
-                    "activityPrice": 0.01
-                }]
+                "productId": product_id,
+                "skuParamList": skuParamList
             }],
-            "activity_name": activity_name,
+            "activityName": activity_name,
             "activityStartTime": current_time,
             "activityEndTime": end_time,
             # "activityBanner": "https://aliyun-oss-msa.meizhidev.com/templates/20190605/db3c7053ee8d3d941481e84b5d1f1401/0",
-            "activityBanner": "https://aliyun-oss-msa.meizhidev.com/templates/20190606/52aa82bf7ee19fbb44304b0195b9ecf4/0",
+            "activityBanner": "https://aliyun-oss-msa.meizhidev.com/templates/20190627/1849fb13493b1fafc8f863ba64d92763/0",
             "groupDurationHours": groupDurationHours,
             "groupCompletePeoples": groupCompletePeoples,
             "activityProductLimit": activityProductLimit,

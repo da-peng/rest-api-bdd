@@ -9,21 +9,45 @@ import re
 postByToken = HttpUtils().postByToken
 post = HttpUtils().post
 
-tenant_code = 'baiyang'
-db_name = 'uat_msa_marketing'
-storeId = 206
-storeCode = str(20190604162222079186726074610008)
+Parameter = {
+    'uat':{
+        'storeId':206,
+        'storeCode':'20190604162222079186726074610008',
+        'payAppCode':'AMILY-pay-02'
+    },
+    'test':{
+        'storeId':78,
+        'storeCode':'2018053411171988358387898510001',
+        'payAppCode':'linqingxuan-pay-02'
+    }
 
+}
 
 @Given('访问开团接口 {path}')
 def step_impl(context, path):
+    path_list = re.split('{|}', path)
+    path_list[1] = context.tenant_code
+    path = ''.join(path_list)
+
+    db_name = 'msa_marketing'
     context.url = context.host + path
+    context.db_name = context.db_prefix + db_name
 
 
 @Given('开团用户及活动信息{wechatAccountId}&{purchases}&{addressId}')
 def step_impl(context, wechatAccountId, purchases, addressId):
+
+    env = context.env
+    Parame=Parameter[env]
+    storeId = Parame['storeId']
+    storeCode = Parame['storeCode']
+    payAppCode = Parame['payAppCode']
+
+    tenant_code = context.tenant_code
+    db_name = context.db_name
+
     activity_info = get_activity_by_type(db_name,tenant_code, 'GROUP')
-    # log.info('activity_info:{0}'.format(activity_info))
+    log.info('activity_info:{0}'.format(activity_info))
 
     payment_order_id_and_code = {}
 
@@ -44,7 +68,7 @@ def step_impl(context, wechatAccountId, purchases, addressId):
                 "formId": "the formId is a mock one",
                 "storeId": storeId,  # 商店id，可固定
                 "storeCode": storeCode,  # 可固定
-                "payAppCode": "AMILY-pay-02",
+                "payAppCode": payAppCode,
                 "addressId": addressId
             }, context.url
         )
@@ -75,10 +99,14 @@ def step_impl(context):
 @Given('访问订单状态接口 {path} 并构建参数请求{userId}')
 def step_impl(context, path, userId):
     path_list = re.split('{|}', path)
+
     payment_order_id_and_code = context.payment_order_id_and_code
     for i in payment_order_id_and_code.keys():
         order_id = i
-        path_list[1] = str(order_id)
+
+        path_list[1] = context.tenant_code
+        path_list[3] = str(order_id)
+
         path = ''.join(path_list)
         url = context.host + path
         response = postByToken(

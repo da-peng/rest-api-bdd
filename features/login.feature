@@ -8,6 +8,6 @@ Feature: 登录
     Then 持久化存储token
     Examples: test
       | account     | password |
-      | 15013300167 | wxpud123 |
+#      | 15013300167 | wxpud123 |
       # 测试环境
-#      | lqx         | abc123   |
+      | lqx         | abc123   |
