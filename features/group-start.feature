@@ -12,7 +12,10 @@ Feature: 开团/参团操作
 #    Then 断言
     Examples: 开团用户及活动信息
       | userId  | wechatAccountId | purchases | addressId |
+      # uat
       | 7755722 | 1721            | 1         | 657       |
+      #test
+#      | 34775784 | 268            | 1         | 881       |
 #    Examples: 订单信息
 #      | userId  |
 #      | 7755722 |

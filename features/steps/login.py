@@ -12,17 +12,18 @@ def step_impl(context, path):
     context.url = context.host + path
 
 
-@Given("账号{account}和{password}")
-def step_impl(context, account, password):
+@Given("{role}账号{account}和{password}")
+def step_impl(context,role, account, password):
 
     response = post({
         "username": account,
         "password": password
     }, context.url
     )
-
+    context.role = role
     context.token = response['responseContent']['token']
 
 @Then('持久化存储token')
 def step_impl(context):
-    add({'token':context.token})
+    key = context.role
+    add({key:context.token})

@@ -71,6 +71,7 @@ def step_impl(context, wechatAccountId, purchases, addressId):
                 "payAppCode": payAppCode,
                 "addressId": addressId
             }, context.url
+            ,'consumer'
         )
 
         try:

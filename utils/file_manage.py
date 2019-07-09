@@ -46,12 +46,15 @@ def add(dict_data):
     with open(path, 'wb') as fp:
         if  isNone:
             for i in dict_data.keys():
-                data[i] = dict_data[i]
+                data[i] = []
+                data[i].append(dict_data[i])
             # print(data)
             pickle.dump(data, fp)
         elif isinstance(table,dict): # value 是一个List
             for i in dict_data.keys():
-                table[i] = dict_data[i]
+                if i  not in table.keys():
+                    table[i] = []
+                table[i].append(dict_data[i]) #  往list append后面加
             # print(table)
             pickle.dump(table, fp)
         log.debug('持久化储存数据成功')
@@ -59,5 +62,8 @@ def add(dict_data):
 if __name__ == '__main__':
     # write({'a': 1})
     # print(read())
-    add({'b': 1})
-    # print(read())
+    dic = {}
+
+    add({'b': 2})
+    add({'b': 3})
+    print(read())

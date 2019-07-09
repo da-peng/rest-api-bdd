@@ -38,7 +38,7 @@ def step_impl(context, nums, product_type, groupDurationHours, groupCompletePeop
 
     for i in range(int(nums)):
         current_time = str(getCurrentTime())
-        activity_name = "拼__团" + get_time_stamp()
+        activity_name = "拼__团_{0}人团{1}".format(randint(2,int(groupCompletePeoples)),get_time_stamp())
         end_time = str(getEndTime())
 
         product_id = choice(product_list)
@@ -71,7 +71,7 @@ def step_impl(context, nums, product_type, groupDurationHours, groupCompletePeop
             "remark": "活动规则",
             "activityStatus": "AVAILABLE"
         }, context.url
-        )
+        ,'manager')
         activity_name_list.append(activity_name)
         sleep()  # sleep 5秒
     context.groupActivityName = activity_name_list

@@ -10,17 +10,17 @@ class HttpUtils(object):
         pass
     # def option(self,re):
 
-    def getToken(self):
+    def getToken(self,key):
         table = read()
-        return table['token']
+        return table[key][0]
 
-    def postByToken(self,request_body, url):
+    def postByToken(self,request_body, url,key):
         log.debug(url)
         log.debug('POST')
         request_bodys = json.dumps(request_body)
         log.debug('REQUEST_body')
         log.debug(request_bodys)
-        token = self.getToken()
+        token = self.getToken(key)
         headers = {
             "content-type": "application/json;charset=UTF-8",
             "token": token
