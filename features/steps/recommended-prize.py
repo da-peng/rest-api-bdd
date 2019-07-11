@@ -70,3 +70,4 @@ def step_impl(context, nums, product_num, product_type):
             , context.url
             , 'consumer'
         )
+    context.response = response

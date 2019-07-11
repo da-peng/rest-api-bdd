@@ -5,6 +5,7 @@ Feature: 登录
   Scenario Outline: 将登录后的token持久化至文件
     Given 访问登录接口 /auth/open/system/auth/login
     Given <role>账号<account>和<password>
+    Then 断言statusCode===20000
     Then 持久化存储token
 
     @test

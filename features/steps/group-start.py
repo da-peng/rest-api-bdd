@@ -95,6 +95,7 @@ def step_impl(context, wechatAccountId, purchases, addressId):
             log.info(str(response))
             log.info('活动ID:{0}已经开团了;可忽略这个错误'.format(activity_group_id))
         sleep()
+    context.response = response
 
     context.payment_order_id_and_code = payment_order_id_and_code
 

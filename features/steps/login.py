@@ -21,6 +21,7 @@ def step_impl(context, role, account, password):
     )
     context.role = role
     context.token = response['responseContent']['token']
+    context.response = response
 
 
 @Then(u'持久化存储token')

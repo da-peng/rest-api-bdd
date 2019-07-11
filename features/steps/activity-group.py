@@ -75,6 +75,7 @@ def step_impl(context, nums, product_type, groupDurationHours, groupCompletePeop
         activity_name_list.append(activity_name)
         sleep()  # sleep 5秒
     # context.groupActivityName = activity_name_list
+    context.response = response
 
     log.info('创建活动{0}个;活动名称:{1}'.format(len(activity_name_list) + 1, ','.join(activity_name_list)))
 
