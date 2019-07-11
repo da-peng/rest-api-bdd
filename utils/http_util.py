@@ -12,7 +12,9 @@ class HttpUtils(object):
 
     def getToken(self,key):
         table = read()
-        return table[key][0]
+        token = table[key]
+        log.debug('{0}角色，Token:{1}'.format(key,token))
+        return token
 
     def postByToken(self,request_body, url,key):
         log.debug(url)

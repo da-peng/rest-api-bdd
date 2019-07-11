@@ -7,46 +7,55 @@ from utils.http_util import HttpUtils
 import re
 
 postByToken = HttpUtils().postByToken
-post = HttpUtils().post
 
 Parameter = {
-    'uat':{
-        'storeId':206,
-        'storeCode':'20190604162222079186726074610008',
-        'payAppCode':'AMILY-pay-02'
+    'uat': {
+        'storeId': 206,
+        'storeCode': '20190604162222079186726074610008',
+        'payAppCode': 'AMILY-pay-02'
     },
-    'test':{
-        'storeId':78,
-        'storeCode':'2018053411171988358387898510001',
-        'payAppCode':'linqingxuan-pay-02'
+    'test': {
+        'storeId': 78,
+        'storeCode': '2018053411171988358387898510001',
+        'payAppCode': 'linqingxuan-pay-02'
     }
 
 }
 
-@Given('访问开团接口 {path}')
+
+@Given(u'访问开团接口 {path}')
 def step_impl(context, path):
     path_list = re.split('{|}', path)
     path_list[1] = context.tenant_code
     path = ''.join(path_list)
 
-    db_name = 'msa_marketing'
+    db_marketing = 'msa_marketing'
+    db_order = 'msa_order'
     context.url = context.host + path
-    context.db_name = context.db_prefix + db_name
+    context.db_order = context.db_prefix + db_order
+    context.db_marketing = context.db_prefix + db_marketing
 
 
-@Given('开团用户及活动信息{wechatAccountId}&{purchases}&{addressId}')
+@Given(u'开团用户及活动信息{wechatAccountId}&{purchases}&{addressId}')
 def step_impl(context, wechatAccountId, purchases, addressId):
-
+    '''
+    开团操作
+    :param context:
+    :param wechatAccountId:
+    :param purchases:
+    :param addressId:
+    :return:
+    '''
     env = context.env
-    Parame=Parameter[env]
+    Parame = Parameter[env]
     storeId = Parame['storeId']
     storeCode = Parame['storeCode']
     payAppCode = Parame['payAppCode']
 
     tenant_code = context.tenant_code
-    db_name = context.db_name
+    db_marketing = context.db_marketing
 
-    activity_info = get_activity_by_type(db_name,tenant_code, 'GROUP')
+    activity_info = get_activity_by_type(db_marketing, tenant_code, 'GROUP')
     log.info('activity_info:{0}'.format(activity_info))
 
     payment_order_id_and_code = {}
@@ -71,7 +80,7 @@ def step_impl(context, wechatAccountId, purchases, addressId):
                 "payAppCode": payAppCode,
                 "addressId": addressId
             }, context.url
-            ,'consumer'
+            , 'consumer'
         )
 
         try:
@@ -90,15 +99,29 @@ def step_impl(context, wechatAccountId, purchases, addressId):
     context.payment_order_id_and_code = payment_order_id_and_code
 
 
-@Then('拿到paymentOrderCode和orderid')
+@Then(u'拿到paymentOrderCode和orderid')
 def step_impl(context):
+    '''
+    删除数据
+    :param context:
+    :return:
+    '''
     payment_order_id_and_code = context.payment_order_id_and_code
     for i in payment_order_id_and_code.keys():
         log.debug('orderId:{0},payment_order_id_and_code:{1}'.format(i, str(payment_order_id_and_code[i])))
+        # update_order_status(context.db_order,i)
+        # 这里不能光更新订单状态，涉及到活动，还有活动状态
 
 
-@Given('访问订单状态接口 {path} 并构建参数请求{userId}')
+@Given(u'访问订单状态接口 {path} 并构建参数请求{userId}')
 def step_impl(context, path, userId):
+    '''
+    只支持普通订单
+    :param context:
+    :param path:
+    :param userId:
+    :return:
+    '''
     path_list = re.split('{|}', path)
 
     payment_order_id_and_code = context.payment_order_id_and_code
@@ -115,7 +138,8 @@ def step_impl(context, path, userId):
                 "userId": str(userId),
                 "paymentCode": payment_order_id_and_code[i],
                 "payTime": getCurrentTime()
-            }, url
+            }, url,
+            'manager'
         )
         sleep()
     log.info('完成所有支付订单状态更新')
