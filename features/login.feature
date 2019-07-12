@@ -2,20 +2,20 @@
 Feature: 登录
   # Enter feature description here
   @LoginSuccess
-  Scenario Outline: 将登录后的token持久化至文件
+  Scenario Outline: 成功登录并获取token
     Given 访问登录接口 /auth/open/system/auth/login
     Given <role>账号<account>和<password>
     Then 断言statusCode===20000
     Then 持久化存储token
 
     @test
-    Examples: test 测试数据 consumer C端 manager B端
+    Examples: test环境
       | account     | password | role     |
       # 测试环境 C端B端账号
       | 15013300167 | wxpud123 | consumer |
       | lqx         | abc123   | manager  |
     @uat
-    Examples: uat 测试数据
+    Examples: uat环境
       | account     | password | role     |
       # 测试环境 C端B端账号
       | 15013300167 | wxpud123 | consumer |

@@ -1,7 +1,6 @@
 # Created by grabbywu at 6/10/19
 @Group
 Feature: 拼团测试
-
   @CreateGroupSuccess
 #  Background:
   Scenario Outline: 创建拼团
@@ -11,7 +10,7 @@ Feature: 拼团测试
 #    Then 持久化存储活动名称
     Then 断言statusCode===20000
     @all
-    Examples: 测试数据nums
+    Examples: 拼团活动信息
       | n  | product_type   | groupDurationHours | groupCompletePeoples | activityProductLimit |
       | 10 | NORMAL_PRODUCT | 2                  | 10                   | 2                    |
 

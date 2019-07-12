@@ -1,0 +1,530 @@
+[
+{
+  "elements": [
+    {
+      "keyword": "Scenario Outline",
+      "location": "features/activity-group.feature:15",
+      "name": "\u521b\u5efa\u62fc\u56e2 -- @1.1 \u6d4b\u8bd5\u6570\u636enums",
+      "status": "skipped",
+      "steps": [
+        {
+          "keyword": "Given",
+          "location": "features/activity-group.feature:7",
+          "name": "\u8bbf\u95ee\u521b\u5efa\u62fc\u56e2\u6d3b\u52a8\u63a5\u53e3 /marketing/{tenant_code}/activity-group/create",
+          "step_type": "given"
+        },
+        {
+          "keyword": "Given",
+          "location": "features/activity-group.feature:9",
+          "name": "\u521b\u5efa10\u4e2a\u6d3b\u52a8\uff1b\u6d3b\u52a8\u4fe1\u606fNORMAL_PRODUCT&2&10&2",
+          "step_type": "given"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/activity-group.feature:11",
+          "name": "\u65ad\u8a00statusCode===20000",
+          "step_type": "then"
+        }
+      ],
+      "tags": [
+        "CreateGroupSuccess",
+        "all"
+      ],
+      "type": "scenario"
+    }
+  ],
+  "keyword": "Feature",
+  "location": "features/activity-group.feature:3",
+  "name": "\u62fc\u56e2\u6d4b\u8bd5",
+  "status": "skipped",
+  "tags": [
+    "Group"
+  ]
+},
+
+{
+  "elements": [
+    {
+      "keyword": "Scenario Outline",
+      "location": "features/group-start.feature:16",
+      "name": "\u5f00\u56e2 -- @1.1 \u5f00\u56e2\u7528\u6237\u53ca\u6d3b\u52a8\u4fe1\u606f",
+      "status": "skipped",
+      "steps": [
+        {
+          "keyword": "Given",
+          "location": "features/group-start.feature:7",
+          "name": "\u8bbf\u95ee\u5f00\u56e2\u63a5\u53e3 /consumer/{tenant_code}/group/start-instance",
+          "step_type": "given"
+        },
+        {
+          "keyword": "Given",
+          "location": "features/group-start.feature:9",
+          "name": "\u5f00\u56e2\u7528\u6237\u53ca\u6d3b\u52a8\u4fe1\u606f268&1&907",
+          "step_type": "given"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/group-start.feature:10",
+          "name": "\u62ff\u5230paymentOrderCode\u548corderid",
+          "step_type": "then"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/group-start.feature:12",
+          "name": "\u65ad\u8a00statusCode===20000",
+          "step_type": "then"
+        }
+      ],
+      "tags": [
+        "OpenGroupSuccess",
+        "test"
+      ],
+      "type": "scenario"
+    },
+    {
+      "keyword": "Scenario Outline",
+      "location": "features/group-start.feature:21",
+      "name": "\u5f00\u56e2 -- @2.1 \u5f00\u56e2\u7528\u6237\u53ca\u6d3b\u52a8\u4fe1\u606f",
+      "status": "skipped",
+      "steps": [
+        {
+          "keyword": "Given",
+          "location": "features/group-start.feature:7",
+          "name": "\u8bbf\u95ee\u5f00\u56e2\u63a5\u53e3 /consumer/{tenant_code}/group/start-instance",
+          "step_type": "given"
+        },
+        {
+          "keyword": "Given",
+          "location": "features/group-start.feature:9",
+          "name": "\u5f00\u56e2\u7528\u6237\u53ca\u6d3b\u52a8\u4fe1\u606f1721&1&657",
+          "step_type": "given"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/group-start.feature:10",
+          "name": "\u62ff\u5230paymentOrderCode\u548corderid",
+          "step_type": "then"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/group-start.feature:12",
+          "name": "\u65ad\u8a00statusCode===20000",
+          "step_type": "then"
+        }
+      ],
+      "tags": [
+        "OpenGroupSuccess",
+        "uat"
+      ],
+      "type": "scenario"
+    }
+  ],
+  "keyword": "Feature",
+  "location": "features/group-start.feature:3",
+  "name": "\u5f00\u56e2/\u53c2\u56e2\u64cd\u4f5c",
+  "status": "skipped",
+  "tags": [
+    "Group"
+  ]
+},
+
+{
+  "elements": [
+    {
+      "keyword": "Scenario Outline",
+      "location": "features/login.feature:15",
+      "name": "\u5c06\u767b\u5f55\u540e\u7684token\u6301\u4e45\u5316\u81f3\u6587\u4ef6 -- @1.1 test \u6d4b\u8bd5\u6570\u636e consumer C\u7aef manager B\u7aef",
+      "status": "passed",
+      "steps": [
+        {
+          "keyword": "Given",
+          "location": "features/login.feature:6",
+          "match": {
+            "arguments": [
+              {
+                "name": "path",
+                "value": "/auth/open/system/auth/login"
+              }
+            ],
+            "location": "features/steps/login.py:10"
+          },
+          "name": "\u8bbf\u95ee\u767b\u5f55\u63a5\u53e3 /auth/open/system/auth/login",
+          "result": {
+            "duration": 0.00023603439331054688,
+            "status": "passed"
+          },
+          "step_type": "given"
+        },
+        {
+          "keyword": "Given",
+          "location": "features/login.feature:7",
+          "match": {
+            "arguments": [
+              {
+                "name": "role",
+                "value": "consumer"
+              },
+              {
+                "name": "account",
+                "value": "15013300167"
+              },
+              {
+                "name": "password",
+                "value": "wxpud123"
+              }
+            ],
+            "location": "features/steps/login.py:15"
+          },
+          "name": "consumer\u8d26\u53f715013300167\u548cwxpud123",
+          "result": {
+            "duration": 0.4267578125,
+            "status": "passed"
+          },
+          "step_type": "given"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/login.feature:8",
+          "match": {
+            "arguments": [],
+            "location": "features/steps/common-assert.py:5"
+          },
+          "name": "\u65ad\u8a00statusCode===20000",
+          "result": {
+            "duration": 0.00010538101196289062,
+            "status": "passed"
+          },
+          "step_type": "then"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/login.feature:9",
+          "match": {
+            "arguments": [],
+            "location": "features/steps/login.py:27"
+          },
+          "name": "\u6301\u4e45\u5316\u5b58\u50a8token",
+          "result": {
+            "duration": 0.0004780292510986328,
+            "status": "passed"
+          },
+          "step_type": "then"
+        }
+      ],
+      "tags": [
+        "LoginSuccess",
+        "test"
+      ],
+      "type": "scenario"
+    },
+    {
+      "keyword": "Scenario Outline",
+      "location": "features/login.feature:16",
+      "name": "\u5c06\u767b\u5f55\u540e\u7684token\u6301\u4e45\u5316\u81f3\u6587\u4ef6 -- @1.2 test \u6d4b\u8bd5\u6570\u636e consumer C\u7aef manager B\u7aef",
+      "status": "passed",
+      "steps": [
+        {
+          "keyword": "Given",
+          "location": "features/login.feature:6",
+          "match": {
+            "arguments": [
+              {
+                "name": "path",
+                "value": "/auth/open/system/auth/login"
+              }
+            ],
+            "location": "features/steps/login.py:10"
+          },
+          "name": "\u8bbf\u95ee\u767b\u5f55\u63a5\u53e3 /auth/open/system/auth/login",
+          "result": {
+            "duration": 0.000125885009765625,
+            "status": "passed"
+          },
+          "step_type": "given"
+        },
+        {
+          "keyword": "Given",
+          "location": "features/login.feature:7",
+          "match": {
+            "arguments": [
+              {
+                "name": "role",
+                "value": "manager"
+              },
+              {
+                "name": "account",
+                "value": "lqx"
+              },
+              {
+                "name": "password",
+                "value": "abc123"
+              }
+            ],
+            "location": "features/steps/login.py:15"
+          },
+          "name": "manager\u8d26\u53f7lqx\u548cabc123",
+          "result": {
+            "duration": 0.8206460475921631,
+            "status": "passed"
+          },
+          "step_type": "given"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/login.feature:8",
+          "match": {
+            "arguments": [],
+            "location": "features/steps/common-assert.py:5"
+          },
+          "name": "\u65ad\u8a00statusCode===20000",
+          "result": {
+            "duration": 9.012222290039062e-05,
+            "status": "passed"
+          },
+          "step_type": "then"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/login.feature:9",
+          "match": {
+            "arguments": [],
+            "location": "features/steps/login.py:27"
+          },
+          "name": "\u6301\u4e45\u5316\u5b58\u50a8token",
+          "result": {
+            "duration": 0.0003750324249267578,
+            "status": "passed"
+          },
+          "step_type": "then"
+        }
+      ],
+      "tags": [
+        "LoginSuccess",
+        "test"
+      ],
+      "type": "scenario"
+    },
+    {
+      "keyword": "Scenario Outline",
+      "location": "features/login.feature:21",
+      "name": "\u5c06\u767b\u5f55\u540e\u7684token\u6301\u4e45\u5316\u81f3\u6587\u4ef6 -- @2.1 uat \u6d4b\u8bd5\u6570\u636e",
+      "status": "passed",
+      "steps": [
+        {
+          "keyword": "Given",
+          "location": "features/login.feature:6",
+          "match": {
+            "arguments": [
+              {
+                "name": "path",
+                "value": "/auth/open/system/auth/login"
+              }
+            ],
+            "location": "features/steps/login.py:10"
+          },
+          "name": "\u8bbf\u95ee\u767b\u5f55\u63a5\u53e3 /auth/open/system/auth/login",
+          "result": {
+            "duration": 0.00011014938354492188,
+            "status": "passed"
+          },
+          "step_type": "given"
+        },
+        {
+          "keyword": "Given",
+          "location": "features/login.feature:7",
+          "match": {
+            "arguments": [
+              {
+                "name": "role",
+                "value": "consumer"
+              },
+              {
+                "name": "account",
+                "value": "15013300167"
+              },
+              {
+                "name": "password",
+                "value": "wxpud123"
+              }
+            ],
+            "location": "features/steps/login.py:15"
+          },
+          "name": "consumer\u8d26\u53f715013300167\u548cwxpud123",
+          "result": {
+            "duration": 0.40859293937683105,
+            "status": "passed"
+          },
+          "step_type": "given"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/login.feature:8",
+          "match": {
+            "arguments": [],
+            "location": "features/steps/common-assert.py:5"
+          },
+          "name": "\u65ad\u8a00statusCode===20000",
+          "result": {
+            "duration": 9.131431579589844e-05,
+            "status": "passed"
+          },
+          "step_type": "then"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/login.feature:9",
+          "match": {
+            "arguments": [],
+            "location": "features/steps/login.py:27"
+          },
+          "name": "\u6301\u4e45\u5316\u5b58\u50a8token",
+          "result": {
+            "duration": 0.0005481243133544922,
+            "status": "passed"
+          },
+          "step_type": "then"
+        }
+      ],
+      "tags": [
+        "LoginSuccess",
+        "uat"
+      ],
+      "type": "scenario"
+    },
+    {
+      "keyword": "Scenario Outline",
+      "location": "features/login.feature:22",
+      "name": "\u5c06\u767b\u5f55\u540e\u7684token\u6301\u4e45\u5316\u81f3\u6587\u4ef6 -- @2.2 uat \u6d4b\u8bd5\u6570\u636e",
+      "status": "passed",
+      "steps": [
+        {
+          "keyword": "Given",
+          "location": "features/login.feature:6",
+          "match": {
+            "arguments": [
+              {
+                "name": "path",
+                "value": "/auth/open/system/auth/login"
+              }
+            ],
+            "location": "features/steps/login.py:10"
+          },
+          "name": "\u8bbf\u95ee\u767b\u5f55\u63a5\u53e3 /auth/open/system/auth/login",
+          "result": {
+            "duration": 0.00011682510375976562,
+            "status": "passed"
+          },
+          "step_type": "given"
+        },
+        {
+          "keyword": "Given",
+          "location": "features/login.feature:7",
+          "match": {
+            "arguments": [
+              {
+                "name": "role",
+                "value": "manager"
+              },
+              {
+                "name": "account",
+                "value": "15013300167"
+              },
+              {
+                "name": "password",
+                "value": "wxpud123"
+              }
+            ],
+            "location": "features/steps/login.py:15"
+          },
+          "name": "manager\u8d26\u53f715013300167\u548cwxpud123",
+          "result": {
+            "duration": 0.23879194259643555,
+            "status": "passed"
+          },
+          "step_type": "given"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/login.feature:8",
+          "match": {
+            "arguments": [],
+            "location": "features/steps/common-assert.py:5"
+          },
+          "name": "\u65ad\u8a00statusCode===20000",
+          "result": {
+            "duration": 9.107589721679688e-05,
+            "status": "passed"
+          },
+          "step_type": "then"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/login.feature:9",
+          "match": {
+            "arguments": [],
+            "location": "features/steps/login.py:27"
+          },
+          "name": "\u6301\u4e45\u5316\u5b58\u50a8token",
+          "result": {
+            "duration": 0.00038909912109375,
+            "status": "passed"
+          },
+          "step_type": "then"
+        }
+      ],
+      "tags": [
+        "LoginSuccess",
+        "uat"
+      ],
+      "type": "scenario"
+    }
+  ],
+  "keyword": "Feature",
+  "location": "features/login.feature:2",
+  "name": "\u767b\u5f55",
+  "status": "passed",
+  "tags": [
+    "Login"
+  ]
+},
+
+{
+  "elements": [
+    {
+      "keyword": "Scenario Outline",
+      "location": "features/recommended-prize.feature:10",
+      "name": "\u521b\u5efa\u63a8\u8350\u6709\u5956\u6d3b\u52a8 -- @1.1 product_num \u6d3b\u52a8\u5546\u54c1\u6570\u91cf",
+      "status": "skipped",
+      "steps": [
+        {
+          "keyword": "Given",
+          "location": "features/recommended-prize.feature:4",
+          "name": "\u8bbf\u95ee\u63a8\u8350\u6709\u5956\u521b\u5efa\u63a5\u53e3 /marketing/{tenant_code}/activity-recommends/create",
+          "step_type": "given"
+        },
+        {
+          "keyword": "Given",
+          "location": "features/recommended-prize.feature:5",
+          "name": "\u521b\u5efa10\u4e2a\u63a8\u8350\u6709\u5956\u6d3b\u52a8\uff0c\u6d3b\u52a8\u4fe1\u606f2&NORMAL_PRODUCT",
+          "step_type": "given"
+        },
+        {
+          "keyword": "Then",
+          "location": "features/recommended-prize.feature:6",
+          "name": "\u65ad\u8a00statusCode===20000",
+          "step_type": "then"
+        }
+      ],
+      "tags": [
+        "all"
+      ],
+      "type": "scenario"
+    }
+  ],
+  "keyword": "Feature",
+  "location": "features/recommended-prize.feature:2",
+  "name": "\u63a8\u8350\u6709\u5956",
+  "status": "skipped",
+  "tags": []
+}
+]

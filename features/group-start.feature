@@ -11,12 +11,12 @@ Feature: 开团/参团操作
 #    Given 访问订单状态接口 /order/{tenant_code}/sale-orders/{orderId}/update-payment-status 并构建参数请求<userId>
     Then 断言statusCode===20000
     @test
-    Examples: 开团用户及活动信息
+    Examples: 开团者信息
       | userId   | wechatAccountId | purchases | addressId |
       | 35158635 | 268             | 1         | 907       |
 
     @uat
-    Examples: 开团用户及活动信息
+    Examples: 开团者信息
       | userId   | wechatAccountId | purchases | addressId |
       | 7755722  | 1721            | 1         | 657       |
 
