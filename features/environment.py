@@ -8,6 +8,7 @@ import os
 def before_scenario(context, scenario):
     env_dict = os.environ
     env = env_dict.get('TestEnv')
+    # 此处需要验证
     if env is None:
         env = config['env']['TEST_ENV']
 
