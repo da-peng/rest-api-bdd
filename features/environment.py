@@ -8,7 +8,7 @@ import os
 def before_scenario(context, scenario):
     env_dict = os.environ
     env = env_dist.get('TestEnv')
-    if env == '':
+    if env is None:
         env = config['env']['TEST_ENV']
 
     context.env = env
