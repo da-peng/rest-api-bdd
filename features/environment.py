@@ -36,6 +36,6 @@ def after_step(context, step):
 
 if __name__== '__main__':
     env_dict = os.environ
-    env = env_dist.get('TestEnv')
+    env = env_dict.get('TestEnv')
     if env == '':
         env = config['env']['TEST_ENV']
