@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b75cb453-2757-4358-9a02-dad08ef00676" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/%allure_result_folder%/14ae152c-b78f-4492-8a45-fc3918932350-result.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/%allure_result_folder%/6170b1e0-372b-4d65-85ba-3adf9563ee18-result.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/%allure_result_folder%/aed7640b-8f12-4ba0-91d3-09699d7f6f90-result.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/%allure_result_folder%/c9517d79-9582-48f8-9a5d-481cdaff72d2-result.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/features/activity-group.feature" afterPath="$PROJECT_DIR$/features/activity-group.feature" />
-      <change beforePath="$PROJECT_DIR$/features/group-start.feature" afterPath="$PROJECT_DIR$/features/group-start.feature" />
-      <change beforePath="$PROJECT_DIR$/features/login.feature" afterPath="$PROJECT_DIR$/features/login.feature" />
-      <change beforePath="$PROJECT_DIR$/features/recommended-prize.feature" afterPath="$PROJECT_DIR$/features/recommended-prize.feature" />
-      <change beforePath="$PROJECT_DIR$/features/steps/recommended-prize.py" afterPath="$PROJECT_DIR$/features/steps/recommended-prize.py" />
-      <change beforePath="$PROJECT_DIR$/store.pkl" afterPath="$PROJECT_DIR$/store.pkl" />
-    </list>
+    <list default="true" id="b75cb453-2757-4358-9a02-dad08ef00676" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +45,7 @@
       <file leaf-file-name="login.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/features/steps/login.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
+            <state relative-caret-position="366">
               <caret line="21" column="21" lean-forward="false" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
               <folding>
                 <element signature="e#17#37#0" expanded="true" />
@@ -67,7 +54,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dockerfile" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Dockerfile" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jenkins/Dockerfile">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="184">
@@ -117,10 +104,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.feature" pinned="false" current-in-tab="false">
+      <file leaf-file-name="login.feature" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/features/login.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
+            <state relative-caret-position="76">
               <caret line="4" column="32" lean-forward="true" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
               <folding />
             </state>
@@ -234,8 +221,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="542" />
-    <option name="y" value="566" />
+    <option name="x" value="519" />
+    <option name="y" value="43" />
     <option name="width" value="1461" />
     <option name="height" value="918" />
   </component>
@@ -324,6 +311,12 @@
               <item name="rest-api-bdd" type="b2602c69:ProjectViewProjectNode" />
               <item name="rest-api-bdd" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rest-api-bdd" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rest-api-bdd" type="462c0819:PsiDirectoryNode" />
+              <item name="features" type="462c0819:PsiDirectoryNode" />
+              <item name="steps" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rest-api-bdd" type="b2602c69:ProjectViewProjectNode" />
@@ -556,7 +549,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="542" y="566" width="1461" height="918" extended-state="0" />
+    <frame x="519" y="43" width="1461" height="918" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297491" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -875,9 +868,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/jenkins/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="33" column="35" lean-forward="true" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/features/steps/login.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
+        <state relative-caret-position="366">
           <caret line="21" column="21" lean-forward="false" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
           <folding>
             <element signature="e#17#37#0" expanded="true" />
@@ -887,16 +888,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/features/login.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
+        <state relative-caret-position="76">
           <caret line="4" column="32" lean-forward="true" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jenkins/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="33" column="35" lean-forward="true" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="35" />
           <folding />
         </state>
       </provider>
