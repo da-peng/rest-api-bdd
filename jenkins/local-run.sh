@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # 1.第一个参数为 环境 env 第二个参数 需要执行的features 列表
 if [[ ! -n $1 ]]&&[[ ! -n $2 ]]; then
     echo "please input env and features"
