@@ -10,9 +10,9 @@ fi
 python --version
 pyenv local 3.7.2
 python --version
-if [ $1 == 'test' ]; then
+if [ $1 -eq "test" ]; then
     export TestEnv='test'
-elif [ $1 == 'uat' ]; then
+elif [ $1 -eq "uat" ]; then
     export TestEnv='uat'
 else
     echo "please input test or uat"
