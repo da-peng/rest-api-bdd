@@ -5,7 +5,7 @@ if [[ ! -n $1 ]]&&[[ ! -n $2 ]]; then
     exit 1
 fi
 
-# 2.当前目录切换python 环境，如果在本地调试，可以 这一步
+# 2.当前目录切换python 环境，如果在本地调试，不需要 这一步
 . /etc/profile.d/pyenv.sh
 python --version
 pyenv local 3.7.2
