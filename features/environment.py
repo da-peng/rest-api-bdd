@@ -37,5 +37,7 @@ def after_step(context, step):
 if __name__== '__main__':
     env_dict = os.environ
     env = env_dict.get('TestEnv')
-    if env == '':
+    print(env)
+    if env is None:
+        print(env)
         env = config['env']['TEST_ENV']
