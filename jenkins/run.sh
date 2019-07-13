@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # 1.第一个参数为 环境 env 第二个参数 需要执行的features 列表
 if [ ! -n $1 ]&&[ ! -n $2 ]; then
     echo "please input env and features"
@@ -10,9 +10,9 @@ fi
 python --version
 pyenv local 3.7.2
 python --version
-if [ "$1" == "test" ]; then
+if [ "$1" = "test" ]; then
     export TestEnv='test'
-elif [ "$1" == "uat" ]; then
+elif [ "$1" = "uat" ]; then
     export TestEnv='uat'
 else
     echo "please input test or uat"
