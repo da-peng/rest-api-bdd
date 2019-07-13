@@ -1,22 +1,21 @@
 FROM jenkins/jenkins:lts
 USER root
-RUN whoami
 RUN apt-get update && apt-get install -y vim
+RUN apt-get install -y --no-install-recommends make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+# 这一步需要科学上网，不然curl 会超时
 RUN curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
 RUN echo '#!/bin/bash ' > /etc/profile.d/pyenv.sh
 RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /etc/profile.d/pyenv.sh
 RUN echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> /etc/profile.d/pyenv.sh
 RUN echo 'eval "$(pyenv init -)"' >> /etc/profile.d/pyenv.sh
 RUN chmod 755  /etc/profile.d/pyenv.sh
-RUN exec $SHELL
+#RUN exec $SHELL
 # RUN source /etc/profile.d/pyenv.sh
-RUN . /etc/profile.d/pyenv.sh
-RUN pyenv versions
+#RUN pyenv versions
 # https://github.com/pyenv/pyenv/wiki
-RUN apt-get update; sudo apt-get install --no-install-recommends make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-RUN pyenv install 3.7.2
-RUN pyenv versions
-USER jenkins
+RUN . /etc/profile.d/pyenv.sh && pyenv install 3.7.2
+#RUN pyenv versions
+#USER jenkins
 
 #RUN pyenv versions
 # drop back to the regular jenkins user - good practice
