@@ -5,8 +5,6 @@ if [[ ! -n $1 ]]&&[[ ! -n $2 ]]; then
     exit 1
 fi
 
-test_env = $1
-features = $2
 
 # 本地运行不需要这个
 #. /etc/profile.d/pyenv.sh
@@ -19,7 +17,7 @@ if [ -d allure_results ]; then
    rm -rf allure_results
 fi
 
-for i in $features
+for i in $2
 do
-  behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$test_env
+  behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$1
 done
