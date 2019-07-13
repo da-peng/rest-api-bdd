@@ -12,12 +12,19 @@ fi
 #pyenv local 3.7.2
 #python --version
 # 移除旧的报告文件夹
+if [[ $1 == 'test' ]]; then
+    export TestEnv='test'
+elif [[ $1 == 'uat' ]]; then
+    export TestEnv='uat'
+else
+    echo "please input test or uat"
+    exit 1
+fi
 
 if [ -d allure_results ]; then
    rm -rf allure_results
 fi
 
-for i in $2
-do
-  behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$1
+for i in $2 ;do
+    behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$1
 done
