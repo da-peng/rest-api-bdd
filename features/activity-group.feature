@@ -9,7 +9,11 @@ Feature: 拼团测试
     Given 创建<n>个活动；活动信息<product_type>&<groupDurationHours>&<groupCompletePeoples>&<activityProductLimit>
 #    Then 持久化存储活动名称
     Then 断言statusCode===20000
-    @all
+    @test
+    Examples: 拼团活动信息
+      | n  | product_type   | groupDurationHours | groupCompletePeoples | activityProductLimit |
+      | 10 | NORMAL_PRODUCT | 2                  | 10                   | 2                    |
+    @uat
     Examples: 拼团活动信息
       | n  | product_type   | groupDurationHours | groupCompletePeoples | activityProductLimit |
       | 10 | NORMAL_PRODUCT | 2                  | 10                   | 2                    |

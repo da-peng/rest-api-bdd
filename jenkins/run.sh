@@ -30,5 +30,9 @@ fi
 for i in $@
 do
   echo $i
-  behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$1
+  j = 1
+  if [ j=2 ]; then
+    behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$1
+  fi
+  j++
 done
