@@ -1,15 +1,18 @@
 #!/bin/sh
 # 1.第一个参数为 环境 env 第二个参数 需要执行的features 列表
-if [[ ! -n $1 ]]&&[[ ! -n $2 ]]; then
+if [ ! -n $1 ]&&[ ! -n $2 ];then
     echo "please input env and features"
     exit 1
 fi
-
-## 2.当前目录切换python 环境，如果在本地调试，不需要这一步
+# https://www.cnblogs.com/han-1034683568/p/7211392.html
+# bash [[ ]] ==
+# sh [] =
+# 2.当前目录切换python 环境，如果在本地调试，不需要这一步
 #. /etc/profile.d/pyenv.sh
 #python --version
 #pyenv local 3.7.2
 #python --version
+
 # 3.导入环境变量
 if [ "$1" = "test" ]; then
     export TestEnv='test'
@@ -25,7 +28,14 @@ if [ -d allure_results ]; then
 fi
 
 # 5.运行测试
-for i in $2
+j=1
+for i in $@
 do
-  behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$1
+  echo $i
+  # 变量名和等号之间不能有空格
+  # int值比较用-eq  大于-gt
+  if [ $j -eq 2 ]||[ $j -gt 2 ]; then
+    behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$1
+  fi
+  j=$(($j+1))
 done

@@ -23,9 +23,9 @@ def getEndTime():
 
 def get_time_stamp():
     ct = time.time()
-    local_time = getCurrentTime()
+    local_time = getCurrentDateTime()
     # data_head = time.strftime("%Y-%m-%d %H:%M:%S", local_time)
-    data_head = time.strftime("%M-%S", local_time)
+    data_head = local_time.strftime("%M-%S")
     data_secs = str(ct)[-3:]
     time_stamp = "%s.%s" % (data_head, data_secs)
     return time_stamp
@@ -34,3 +34,4 @@ def get_time_stamp():
 if __name__ =='__main__':
     print(getCurrentTime())
     print(getEndTime())
+    print(get_time_stamp())
