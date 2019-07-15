@@ -36,5 +36,5 @@ do
     echo $j
     behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$1
   fi
-  var=$((var+1))
+  j=$((j+1))
 done
