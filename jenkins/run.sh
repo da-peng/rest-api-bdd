@@ -27,16 +27,15 @@ if [ -d allure_results ]; then
 fi
 
 # 5.运行测试
+j=1
 for i in $@
 do
   echo $i
-  j=1
   # 变量名和等号之间不能有空格
-  if [ $j = 2 ]; then
+  echo $j
+  if [ "$j" >= 2 ]; then
     echo $j
     behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$1
   fi
-  echo $(($j+1))
   j=$(($j+1))
-  echo $j
 done
