@@ -1,6 +1,7 @@
 # encoding=utf-8
 
 from utils.config_parser import config
+import pytest
 import allure
 # 结合allure输出报告
 @allure.feature('配置')

@@ -1,7 +1,7 @@
 # encoding=utf-8
 from utils.time_manage import *
+import pytest
 import allure
-
 @allure.feature('日期时间操作')
 class TestTimeManage(object):
 

@@ -1,7 +1,8 @@
 # encoding=utf-8
-from utils.file_manage import *
-import allure
 
+from utils.file_manage import *
+import pytest
+import allure
 @allure.feature('文件操作')
 class TestFileManage(object):
 
