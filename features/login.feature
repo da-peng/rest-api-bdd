@@ -9,13 +9,13 @@ Feature: 登录
     Then 持久化存储token
 
     @test
-    Examples: test环境
+    Examples: Test环境
       | account     | password | role     |
       # 测试环境 C端B端账号
       | 15013300167 | wxpud123 | consumer |
       | lqx         | abc123   | manager  |
     @uat
-    Examples: uat环境
+    Examples: Uat环境
       | account     | password | role     |
       # 测试环境 C端B端账号
       | 15013300167 | wxpud123 | consumer |

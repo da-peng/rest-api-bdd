@@ -10,11 +10,11 @@ Feature: 拼团测试
 #    Then 持久化存储活动名称
     Then 断言statusCode===20000
     @test
-    Examples: 拼团活动信息
+    Examples: 拼团活动信息 Test环境
       | n  | product_type   | groupDurationHours | groupCompletePeoples | activityProductLimit |
       | 10 | NORMAL_PRODUCT | 2                  | 10                   | 2                    |
     @uat
-    Examples: 拼团活动信息
+    Examples: 拼团活动信息 Uat环境
       | n  | product_type   | groupDurationHours | groupCompletePeoples | activityProductLimit |
       | 10 | NORMAL_PRODUCT | 2                  | 10                   | 2                    |
 
