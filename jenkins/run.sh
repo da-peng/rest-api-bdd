@@ -33,6 +33,7 @@ do
   j=1
   # 变量名和等号之间不能有空格
   if [ j=2 ]; then
+    echo $j
     behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$1
   fi
   j=j+1
