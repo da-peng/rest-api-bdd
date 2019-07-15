@@ -12,7 +12,6 @@ fi
 #python --version
 #pyenv local 3.7.2
 #python --version
-
 # 3.导入环境变量
 if [ "$1" = "test" ]; then
     export TestEnv='test'
@@ -35,7 +34,12 @@ do
   # 变量名和等号之间不能有空格
   # int值比较用-eq  大于-gt
   if [ $j -eq 2 ]||[ $j -gt 2 ]; then
+    {
     behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$1
+    }||{
+    echo "execute error！"
+    exit 1
+    }
   fi
   j=$(($j+1))
 done
