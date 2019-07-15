@@ -2,7 +2,6 @@
 from utils.config_parser import config
 import os
 
-
 # 如果环境不同则，则删除持久化文件，这个还未实现
 
 def before_scenario(context, scenario):
@@ -11,7 +10,6 @@ def before_scenario(context, scenario):
     # 此处需要验证
     if env is None:
         env = config['env']['TEST_ENV']
-
     context.env = env
     if env == 'test':
         service_cap = config['test.service']

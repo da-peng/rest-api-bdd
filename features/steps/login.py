@@ -6,7 +6,7 @@ from utils.file_manage import add
 
 post = HttpUtils().post
 
-
+# 步骤函数
 @Given(u"访问登录接口 {path}")
 def step_impl(context, path):
     context.url = context.host + path
