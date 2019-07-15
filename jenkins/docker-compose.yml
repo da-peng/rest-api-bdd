@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+  sonarqube:
+    image: sonarqube
+    container_name: sonarqube
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+#     mac 下根目录～
+      - ~/sonarqube/conf:/opt/sonarqube/conf
+      - ~/sonarqube/data:/opt/sonarqube/data
+      - ~/sonarqube/logs:/opt/sonarqube/logs
+      - ~/sonarqube/extensions:/opt/sonarqube/extensions
+    links:
+      - db
+    environment:
+      - sonar.jdbc.username=sonar
+      - sonar.jdbc.password=sonar
+      - sonar.jdbc.url=jdbc:postgresql://db:5432/sonar

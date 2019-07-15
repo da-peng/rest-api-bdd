@@ -1,6 +1,6 @@
 # encoding=utf-8
 from behave import *
-from utils.time_mange import *
+from utils.time_manage import *
 from service.product_info import *
 from utils.http_util import HttpUtils
 from utils.log_manage import Log as log
