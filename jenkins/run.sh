@@ -1,6 +1,6 @@
 #!/bin/sh
 # 1.第一个参数为 环境 env 第二个参数 需要执行的features 列表
-if [ ! -n $1 ]&&[ ! -n $2 ]; then
+if [ ! -n $1 ]&&[ ! -n $2 ];then
     echo "please input env and features"
     exit 1
 fi
@@ -27,7 +27,8 @@ if [ -d allure_results ]; then
 fi
 
 # 5.运行测试
-for i in $2
+for i in $@
 do
+  echo $i
   behave -f allure_behave.formatter:AllureFormatter -o allure_results $i --tags=$1
 done
