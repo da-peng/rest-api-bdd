@@ -17,4 +17,5 @@ venv.bak/
 /reports/
 /demo/
 /utest_results/
-/utest-results/
+.coverage
+/htmlcov/

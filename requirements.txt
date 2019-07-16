@@ -7,6 +7,7 @@ behave==1.2.6
 certifi==2019.3.9
 chardet==3.0.4
 configparser==3.7.4
+coverage==4.5.3
 enum34==1.1.6
 freeze==1.0.10
 get==2019.4.13
