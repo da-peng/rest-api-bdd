@@ -20,3 +20,4 @@ venv.bak/
 .coverage
 /htmlcov/
 coverage.xml
+/utest-results/
