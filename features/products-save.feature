@@ -8,13 +8,12 @@ Feature: 商品
     Then 断言statusCode===20000
     Then 持久化存储token
 
-    @test
+  @test
     Examples: Test环境
-      | account     | password | role     |
-      # 测试环境 C端B端账号
-      | 15013300167 | wxpud123 | consumer |
-      | lqx         | abc123   | manager  |
-    @uat
+      | productBrandId | productClassifyId | freightTemplateId | deliveryType |
+      | 54             | 264               | 127               | EXPRESS      |
+
+  @uat
     Examples: Uat环境
       | account     | password | role     |
       # 测试环境 C端B端账号
