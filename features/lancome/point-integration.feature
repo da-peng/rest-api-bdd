@@ -1,5 +1,5 @@
 # Created by grabbywu at 2019-08-08
-Feature: 小黑瓶游戏-游戏集成测试
+Feature: 小黑瓶游戏-游戏集成测试(前置条件，以下所有用户之前都未获得加赠券）
 
   Scenario Outline: 小黑瓶游戏-游戏测试1
     Given <mixNick>获得游戏分数<P1>分
