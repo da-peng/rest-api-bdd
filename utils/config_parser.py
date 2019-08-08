@@ -6,7 +6,7 @@ config = conf()
 
 current_dir = os.path.dirname(os.path.dirname(__file__))
 
-path= current_dir+'/conf/env.ini'
+path= current_dir+'/conf/msa/env.ini'
 
 config.read(path)
 

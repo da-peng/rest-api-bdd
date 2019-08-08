@@ -1,0 +1,1 @@
+lancome_url = "http://lancome.meizhidev.com/lancome"
