@@ -55,7 +55,7 @@ Feature: 小黑瓶游戏-游戏测试
 
     Examples:
       | mixNick                                         | P1 | N1 | C1 | P2  | N2 | C2  |
-      | 华01qe7WRuMPuETxV2rsDX2mTqSqzTBhMwYb5P3UFPgULTo= | 41 | 2  | 41 | 100 | 3  | 100 |
+      | d01FFAbiNvDJ8FgBYFOoJT8ePftTwZSpTqrzWGv5A1FrJM= | 41 | 2  | 41 | 100 | 3  | 100 |
 
 
     Scenario Outline: 小黑瓶游戏-游戏测试4
@@ -66,4 +66,4 @@ Feature: 小黑瓶游戏-游戏测试
 
     Examples:
       | mixNick                                         | P1 | N1 | C1 |
-      | 华01qe7WRuMPuETxV2rsDX2mTqSqzTBhMwYb5P3UFPgULTo= | 51 | 3  | 51 |
+      | 日01dnMspl4ZupGuxlQI4vLebVavOOIexRl9KFi8nZNtFmM= | 51 | 3  | 51 |
