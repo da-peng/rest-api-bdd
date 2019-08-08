@@ -4,7 +4,10 @@ from utils.config_parser import config
 import pickle, os
 from utils.log_manage import Log as log
 current_path = os.path.dirname(os.path.dirname(__file__))
-path = config['store.file.path']['PATH']
+
+common_config_path = '/conf/common/env.ini'
+
+path = config(common_config_path)['store.file.path']['PATH']
 
 path = current_path + path
 

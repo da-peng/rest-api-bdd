@@ -1,7 +1,9 @@
 # encoding=utf-8
 from utils.config_parser import config
 
-level = config['log.level']['level']
+common_config_path = '/conf/common/env.ini'
+
+level = config(common_config_path)['log.level']['level']
 
 
 class Log(object):

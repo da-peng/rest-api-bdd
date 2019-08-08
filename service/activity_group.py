@@ -1,6 +1,5 @@
 #encoding=utf-8
 from utils.db_connect import DbConnect
-from utils.config_parser import config
 from utils.log_manage import Log as log
 # GROUP
 

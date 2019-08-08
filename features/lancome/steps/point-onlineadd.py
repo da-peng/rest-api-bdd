@@ -19,5 +19,6 @@ def step_impl(context,mixNick,gameType,gameUsedSeconds,gamePoint):
         'gameUsedSeconds':gameUsedSeconds,
         'gamePoint':gamePoint
     }
-    from_post(request_body,context.url)
+    response=from_post(request_body,context.url)
+
 

@@ -68,6 +68,7 @@ class HttpUtils(object):
         response = s.send(prepared)
         log.debug('RESPONSE')
         log.debug(response.text)
+
         return response
 
     def form_get(self, request_params, url):

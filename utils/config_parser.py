@@ -2,18 +2,21 @@
 from  configparser import  ConfigParser as conf
 import os
 
-config = conf()
 
-current_dir = os.path.dirname(os.path.dirname(__file__))
+def config(path):
+    config = conf()
 
-path= current_dir+'/conf/msa/env.ini'
+    current_dir = os.path.dirname(os.path.dirname(__file__))
 
-config.read(path)
+    # path= current_dir+'/conf/msa/env.ini'
+    absolute_path = current_dir + path
+    config.read(absolute_path)
+    return config
 
 if __name__ == '__main__':
-    print(config.sections())
-
-    print(config['test.service.url'])
+    # print(config.sections())
+    #
+    # print(config['test.service.url'])
 
     for key in config['bitbucket.org']:
         print(key)
