@@ -1,1 +1,1 @@
-lancome_url = "http://lancome.meizhidev.com/lancome"
+lancome_url = "http://lancome-test.meizhidev.com/lancome"

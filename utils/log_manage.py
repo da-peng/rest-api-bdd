@@ -3,7 +3,9 @@ from utils.config_parser import config
 
 common_config_path = '/conf/common/env.ini'
 
-level = config(common_config_path)['log.level']['level']
+config = config(common_config_path)
+
+level = config['log.level']['level']
 
 
 class Log(object):
