@@ -2,7 +2,6 @@ from features.lancome.steps.const import lancome_url
 from behave import *
 from utils.http_util import HttpUtils
 from utils.log_manage import Log as log
-import json
 import time
 
 from_get = HttpUtils().form_get
@@ -20,7 +19,6 @@ def step(context, gameType):
         'gameType': gameType
     }
     res = from_get(request_params, url)
-    res = json.loads(res.text)
     rank_list = res['responseContent']
     if len(rank_list) == 0:
         assert False, "排行榜数据为空"
@@ -66,7 +64,6 @@ def step(context, ):
         'gameType': gameType
     }
     res = from_get(request_params, url)
-    res = json.loads(res.text)
 
     first = res['responseContent'][0]
 
@@ -91,7 +88,6 @@ def step(context, gameDate):
         'gameType': gameType
     }
     res = from_get(request_params, url)
-    res = json.loads(res.text)
     rank_list = res['responseContent']
     lenght = len(rank_list)
     if lenght == 0:

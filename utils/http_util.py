@@ -31,7 +31,7 @@ class HttpUtils(object):
         }
         response = requests.post(url, headers=headers, json=request_body)
         log.debug('RESPONSE')
-        log.debug(response.text)
+        log.debug(json.dumps(json.loads(response.text),indent=2,ensure_ascii=False))
         response = json.loads(response.text)
         return response
 
@@ -50,7 +50,7 @@ class HttpUtils(object):
         }
         response = requests.post(url, headers=headers, json=request_body)
         log.debug('RESPONSE')
-        log.debug(response.text)
+        log.debug(json.dumps(json.loads(response.text),indent=2,ensure_ascii=False))
         response = json.loads(response.text)
         return response
 
@@ -67,8 +67,8 @@ class HttpUtils(object):
         s = requests.Session()
         response = s.send(prepared)
         log.debug('RESPONSE')
-        log.debug(response.text)
-
+        log.debug(json.dumps(json.loads(response.text),indent=2,ensure_ascii=False))
+        response = json.loads(response.text)
         return response
 
     def form_get(self, request_params, url):
@@ -88,8 +88,8 @@ class HttpUtils(object):
         s = requests.Session()
         response = s.send(prepared)
         log.debug('RESPONSE')
-        log.debug(response.text)
-
+        log.debug(json.dumps(json.loads(response.text),indent=2,ensure_ascii=False))
+        response = json.loads(response.text)
         return response
 
 

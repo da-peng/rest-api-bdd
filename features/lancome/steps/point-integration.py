@@ -2,7 +2,6 @@ from behave import *
 from utils.http_util import HttpUtils
 from features.lancome.steps.const import lancome_url
 import json
-
 from_post = HttpUtils().form_post
 from_get = HttpUtils().form_get
 GAME_TYPE = 'LITTLE_BLACK_BOTTLE'
@@ -19,7 +18,6 @@ def step(context,mixNick,gamePoint):
         'gamePoint':gamePoint
     }
     response = from_post(request_body, url)
-    response = json.loads(response.text)
     context.response= response # 传进入断言用
 
 @Then(u'复活前check游戏分数{gamePoint},还差{point}分，得{amount}个加赠券')
@@ -34,7 +32,7 @@ def step_impl(context,gamePoint,point,amount):
         'gamePoint':gamePoint
     }
     response = from_post(request_body,url)
-    response = json.loads(response.text)
+
     responseContent= response['responseContent']
     responseContent= json.loads(responseContent)
 
@@ -58,7 +56,6 @@ def step(context,gamePoint):
     }
     response = from_post(request_body, url)
 
-    response = json.loads(response.text)
     context.response= response # 传进入断言用
 
 @Then(u'断言获得加赠券{cards}张及今日游戏最高分{gamePoint}')
@@ -72,7 +69,7 @@ def step_impl(context,cards,gamePoint):
     }
 
     response = from_get(request_parames, url)
-    response = json.loads(response.text)
+
     cards_ret = response['responseContent'][0]['cards']
     game_point = response['responseContent'][0]['gamePoint']
 
