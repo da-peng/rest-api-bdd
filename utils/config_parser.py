@@ -13,9 +13,14 @@ def config(path):
     config.read(absolute_path)
     return config
 
+
+
 if __name__ == '__main__':
     common_config_path = '/conf/common/env.ini'
+    #common_config_path='/conf/lancome/env.ini'
 
     config = config(common_config_path)
-
+    print(conf)
     level = config['log.level']['level']
+    #url=config['test.service']['URL']
+

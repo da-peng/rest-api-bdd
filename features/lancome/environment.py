@@ -29,10 +29,10 @@ def before_scenario(context, scenario):
 def after_step(context, step):
     print()
 
-if __name__== '__main__':
-    env_dict = os.environ
-    env = env_dict.get('TestEnv')
-    print(env)
-    if env is None:
-        print(env)
-        env = config['env']['TEST_ENV']
+# if __name__== '__main__':
+#     env_dict = os.environ
+#     env = env_dict.get('TestEnv')
+#     print(env)
+#     if env is None:
+#         print(env)
+#         # env = config['env']['TEST_ENV']
