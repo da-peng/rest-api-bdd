@@ -103,7 +103,7 @@ def step(context, gameDate):
         res = from_get(request_parames, url)
 
         if i > 3:
-            assert res['responseContent']!=None,'第{0}人没有拿到获奖凭证'.format(i)
+            assert res['responseContent']!= None,'第{0}人没有拿到获奖凭证'.format(i)
         else:
             assert res['responseContent'] == None,'第{0}人不应该拿到获奖凭证'.format(i)
 

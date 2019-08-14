@@ -11,20 +11,16 @@ def before_scenario(context, scenario):
     # 此处需要验证
     config = conf(lancome_conf_path)
     if env is None:
-
         env = config['env']['TEST_ENV']
     context.env = env
 
-    if env == 'test':
-        service_cap = config['test.service']
-        context.host = service_cap['URL']
+    for i in ['test','uat','pro']:
+        if env == i:
+            service_cap = config[i+'.service']
+            context.host = service_cap['URL']
+        else:
+            raise Exception('运行环境设置错误！')
 
-    elif env == 'uat':
-        service_cap = config['uat.service']
-        context.host = service_cap['URL']
-    elif env == 'pro':
-        service_cap = config['pro.service']
-        context.host = service_cap['URL']
 
 def after_step(context, step):
     print()
