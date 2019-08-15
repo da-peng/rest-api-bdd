@@ -109,4 +109,30 @@ def step(context, gameDate):
 
 
 
+@Given(u'获取{gameDate}游戏排名')
+def step(context,gameDate):
+    url = lancome_url + '/online-game-rankings/list'
+
+    gameType = 'LITTLE_BLACK_BOTTLE'
+    request_params = {
+        'gameDate': gameDate,
+        'gameType': gameType
+    }
+    res = from_get(request_params, url)
+
+
+@Then(u'{mixNick}提交数据{gamePoint}')
+def step(context,mixNick,gamePoint):
+    url = lancome_url + '/nascent/point/onlineadd'
+    # gamePoint = context.first_gamePoint + 1
+    gameType = 'LITTLE_BLACK_BOTTLE'
+    request_body = {
+        'mixNick': mixNick,
+        'gameType': gameType,
+        'gameUsedSeconds': 10,
+        'gamePoint': gamePoint
+    }
+    response = from_post(request_body, url)
+
+    context.mixNick = mixNick
 

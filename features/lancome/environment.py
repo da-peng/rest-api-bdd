@@ -18,8 +18,6 @@ def before_scenario(context, scenario):
         if env == i:
             service_cap = config[i+'.service']
             context.host = service_cap['URL']
-        else:
-            raise Exception('运行环境设置错误！')
 
 
 def after_step(context, step):

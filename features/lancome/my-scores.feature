@@ -6,5 +6,5 @@ Feature: 小黑瓶游戏-我的游戏成绩
     Given 我的游戏成绩接口参数<mixNick>&&<gameType>
     Examples:
       | mixNick                                         | gameType            |
-      | 司01acVrxu9SNwVI1wv2qGLZVaSqzTBhMwYb5P3UFPgULTo= | LITTLE_BLACK_BOTTLE |
-      | 华01qe7WRuMPuETxV2rsDX2mTqSqzTBhMwYb5P3UFPgULTo= | LITTLE_BLACK_BOTTLE |
+      | t01wOCuTUaovrlmpm62Dhxp2Lv9XsO5gA7hZ+91xlFG3/Y= | LITTLE_BLACK_BOTTLE |
+#      | d01FFAbiNvDJ8FgBYFOoJT8ePftTwZSpTqrzWGv5A1FrJM= | LITTLE_BLACK_BOTTLE |
