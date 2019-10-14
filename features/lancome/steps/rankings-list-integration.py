@@ -103,6 +103,7 @@ def step(context, gameDate):
         }
         res = from_get(request_parames, url)
 
+<<<<<<< HEAD
         if i < 3:
             assert res['responseContent']!=None,'第{0}人没有拿到获奖凭证'.format(i)
         else:
@@ -135,6 +136,10 @@ def step(context, gameDate1):
 
         if i < 3:
             assert res['responseContent']!=None,'第{0}人没有拿到获奖凭证'.format(i)
+=======
+        if i > 3:
+            assert res['responseContent']!= None,'第{0}人没有拿到获奖凭证'.format(i)
+>>>>>>> 999a142d923ccf2aacf45149a21ab02f83817c73
         else:
             assert res['responseContent'] == None,'第{0}人不应该拿到获奖凭证'.format(i)
     context.firstmixNick=rank_list[0]['mixNick']
@@ -177,4 +182,30 @@ def step(context, gameDate2):
 
 
 
+@Given(u'获取{gameDate}游戏排名')
+def step(context,gameDate):
+    url = lancome_url + '/online-game-rankings/list'
+
+    gameType = 'LITTLE_BLACK_BOTTLE'
+    request_params = {
+        'gameDate': gameDate,
+        'gameType': gameType
+    }
+    res = from_get(request_params, url)
+
+
+@Then(u'{mixNick}提交数据{gamePoint}')
+def step(context,mixNick,gamePoint):
+    url = lancome_url + '/nascent/point/onlineadd'
+    # gamePoint = context.first_gamePoint + 1
+    gameType = 'LITTLE_BLACK_BOTTLE'
+    request_body = {
+        'mixNick': mixNick,
+        'gameType': gameType,
+        'gameUsedSeconds': 10,
+        'gamePoint': gamePoint
+    }
+    response = from_post(request_body, url)
+
+    context.mixNick = mixNick
 

@@ -5,3 +5,4 @@ Feature: 获取游戏排名
     Examples:
     |gameDate        |         gameType          |
     |    20190812    |    LITTLE_BLACK_BOTTLE    |
+
