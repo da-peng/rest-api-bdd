@@ -1,4 +1,4 @@
-Feature: 分数相同排名，后玩的排前
+Feature: 分数相同排名，先玩的排前
 
   Scenario Outline: 分数相同排名
     Given 获取第一名的分数和混淆昵称, 参数<gameType>
@@ -16,3 +16,9 @@ Feature: 分数相同排名，后玩的排前
     Examples:
       | gameDate |
       | 20190809 |
+  Scenario Outline: : 获得过获奖凭证的会员不能再次获得
+     Given <gameDate1>获得过优惠券
+     Then <gameDate2>,依然是前三名,不会获得优惠券
+     Examples:
+       |gameDate1|gameDate2|
+       |    20190809   |     20190812     |

@@ -6,5 +6,5 @@ Feature: 小黑瓶游戏-还差n分得到m个加赠券
     Given 游戏结果判断接口参数<mixNick>&&<gameType>&&<gameUsedSeconds>&&<gamePoint>
     Examples:
       | mixNick            | gameType            | gameUsedSeconds | gamePoint |
-      | ttttttttttttttttt2 | LITTLE_BLACK_BOTTLE | 10              | 31        |
+      | ttttttttttttttttt2 | LITTLE_BLACK_BOTTLE | 10              | 30        |
 #      | 华01qe7WRuMPuETxV2rsDX2mTqSqzTBhMwYb5P3UFPgULTo= | LITTLE_BLACK_BOTTLE | 10              | 30        |

@@ -36,9 +36,11 @@ def after_step(context, step):
 
 
 if __name__== '__main__':
+    config = conf(msa_config_path)
     env_dict = os.environ
     env = env_dict.get('TestEnv')
     print(env)
     if env is None:
         print(env)
-        env = config['env']['TEST_ENV']
+    env = config['env']['TEST_ENV']
+    print(env)

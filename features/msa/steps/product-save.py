@@ -1,20 +1,18 @@
 # encoding=utf-8
 from behave import *
-from utils.time_manage import *
-from service.coupon_info import *
-from service.product_info import *
 from utils.http_util import HttpUtils
-from random import *
+import random
 import re
 
 postByToken = HttpUtils().postByToken
 
+
 @Given(u"访问商品创建接口 {path}")
 def step_impl(context, path):
-
     path_list = re.split('{|}', path)
     path_list[1] = context.tenant_code
     path = ''.join(path_list)
+    context.url = context.host + path
 
     # db_store = 'msa_store'
     # db_marketing = 'msa_marketing'
@@ -25,24 +23,23 @@ def step_impl(context, path):
     # 按件
     # 按重量
 
-@Given(u'商品信息{productBrandId}&{productClassifyId}&{freightTemplateId}&{deliveryType}')
-def step_impl(context,productBrandId,productClassifyId,freightTemplateId,deliveryType):
-    saleStock=999
-    salePrice=10
-    tagPrice= 99
+
+@Given(u'商品信息{deliveryType}&{productname}')
+def step_impl(context, deliveryType, productname):
+    saleStock = 999
+    salePrice = 10
+    tagPrice = 99
     productVideo_id = 527
-    skuCode = "PRODUCT-SKU0002"
-
-    specificationName= '商品规格'
-
+    skuCode = ''.join(random.sample('123456789', 9))
+    #deliveryType：商品配送类型
     response = postByToken(
         {
             "productDetail": {
-                "remark": "<p>商品描述</p>"
+                "remark": "<p>有灵魂的商品</p>"
             },
             "deliveryType": deliveryType,
 
-            "freightTemplateId": int(freightTemplateId),
+            "freightTemplateId": 126,
             "productSkuList": [{
                 "productSkuSpecificationList": [{
                     "specificationName": "分类规格名称-A",
@@ -60,10 +57,10 @@ def step_impl(context,productBrandId,productClassifyId,freightTemplateId,deliver
                 "saleStock": saleStock,
                 "salePrice": salePrice,
                 "tagPrice": tagPrice,
-                #是否应用该SKU
+                # 是否应用该SKU
                 "usable": False
             }],
-            "productName": "测试商品名称",
+            "productName": productname,
             "productUnitId": 1,
             "productUnitName": "kg",
             "productDigest": "商品卖点摘要",
@@ -82,10 +79,10 @@ def step_impl(context,productBrandId,productClassifyId,freightTemplateId,deliver
             "memberDiscountFlag": "YES",
             "deductingStockModel": "ORDER_PAY",
 
-            "productBrandId": int(productBrandId),
-            "productBrandName": "测试品牌",
+            "productBrandId": 30,
+            "productBrandName": "林清轩",
 
-            "productClassifyId": int(productClassifyId),
+            "productClassifyId": 264,
             "productClassifyName": "A-测试商品分类",
 
             "videoId": productVideo_id,
@@ -93,4 +90,20 @@ def step_impl(context,productBrandId,productClassifyId,freightTemplateId,deliver
         }
         , context.url
         , 'manager'
+    )
+    context.responseContent = str(response['responseContent'])
+
+
+@Given(u'访问发布商品接口{path}')
+def step_impl(context, path):
+    path_list = re.split('{|}', path)
+    path_list[1] = context.tenant_code
+
+    path = ''.join(path_list)
+    context.url = context.host + path + context.responseContent
+
+    postByToken([{
+        "storeType": "ONLINE_STORE",
+        "productSaleStatus": "YES"
+    }], context.url, 'manager'
     )

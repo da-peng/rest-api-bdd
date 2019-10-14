@@ -12,13 +12,11 @@ Feature: 登录
     Examples: Test环境
       | account     | password | role     |
       # 测试环境 C端B端账号
-      | 15013300167 | wxpud123 | consumer |
       | lqx         | abc123   | manager  |
     @uat
     Examples: Uat环境
       | account     | password | role     |
       # 测试环境 C端B端账号
-      | 15013300167 | wxpud123 | consumer |
       | 15013300167 | wxpud123 | manager  |
       # 测试环境，创建的时候用这个管理员账号： lqx
 #      | lqx         | abc123   |

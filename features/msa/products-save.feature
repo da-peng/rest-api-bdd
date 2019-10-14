@@ -4,21 +4,21 @@ Feature: 商品
   @CreateSuccess
   Scenario Outline:
     Given 访问商品创建接口 /store/{tenant_code}/products/save
-    Given 商品信息<productBrandId>&<productClassifyId>&<freightTemplateId>&<deliveryType>
-    Then 断言statusCode===20000
-    Then 持久化存储token
+    Given 商品信息<deliveryType>&<productname>
+    Given 访问发布商品接口/store/{tenant-code}/products-store/save-sale-status/
 
   @test
     Examples: Test环境
-      | productBrandId | productClassifyId | freightTemplateId | deliveryType |
-      | 54             | 264               | 127               | EXPRESS      |
+      | deliveryType | productname |
+      | ALL      | 910商品1    |
 
   @uat
     Examples: Uat环境
-      | account     | password | role     |
+      | deliveryType | productname |
+      | EXPRESS      | 商品灵魂        |
       # 测试环境 C端B端账号
-      | 15013300167 | wxpud123 | consumer |
-      | 15013300167 | wxpud123 | manager  |
+
+
       # 测试环境，创建的时候用这个管理员账号： lqx
 #      | lqx         | abc123   |
       # uat环境
