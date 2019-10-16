@@ -76,15 +76,15 @@ if __name__ == '__main__':
     # 活动商品
     db_name = 'uat_msa_marketing'
     connect = DbConnect(db_name)
-    activity_res = connect.query("SELECT DISTINCT b.activity_id,c.product_id,c.sku_id "
-                        "FROM "
-                        "(SELECT activity_id,product_id FROM(SELECT id,activity_name FROM activity_group WHERE activity_end_time > now( )) "
-                        "AS a LEFT JOIN activity_product ON a.id = activity_id) "
-                        "AS b LEFT JOIN activity_product_sku AS c ON b.product_id = c.product_id")
-    for activity_id, product_id,sku_id in activity_res:
-        print('activity_id:{0},product_id:{1},sku_id:{2}'.format(activity_id,product_id,sku_id))
+    # activity_res = connect.query("SELECT DISTINCT b.activity_id,c.product_id,c.sku_id "
+    #                     "FROM "
+    #                     "(SELECT activity_id,product_id FROM(SELECT id,activity_name FROM activity_group WHERE activity_end_time > now( )) "
+    #                     "AS a LEFT JOIN activity_product ON a.id = activity_id) "
+    #                     "AS b LEFT JOIN activity_product_sku AS c ON b.product_id = c.product_id")
+    # for activity_id, product_id,sku_id in activity_res:
+    #     print('activity_id:{0},product_id:{1},sku_id:{2}'.format(activity_id,product_id,sku_id))
     # print('{0}'.format(res[0]))
-    connect.close()
+    #connect.close()
 
     # 商品
     # db_name = 'uat_msa_store'
@@ -96,3 +96,7 @@ if __name__ == '__main__':
     #     print('product_id:{0},sku_code:{1}'.format(product_id,sku_code))
     # connect.close()
     #
+    a=connect.query('SELECT activity_name FROM activity_group ')
+    for i in a:
+
+        print(i)

@@ -1,4 +1,5 @@
-Feature: 分数相同排名，先到先得
+Feature: 分数相同排名，先玩的排前
+
 
 #  Scenario Outline: 分数相同排名
 #    Given 获取第一名的分数和混淆昵称, 参数<gameType>
@@ -26,6 +27,7 @@ Feature: 分数相同排名，先到先得
 #    Given 获取<gameDate>游戏排名
 
     Examples:
+
       | gameDate | gamePoint1 | gamePoint2 | mixNick1 | mixNick2 |
       | 20190812 | 40         | 41         | aa       | bb       |
 

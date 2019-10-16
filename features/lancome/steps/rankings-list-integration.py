@@ -53,6 +53,7 @@ def step_impl(context, mixNick):
     context.mixNick = mixNick
 
 
+
 @Then(u'断言变动后的排行榜第一名的信息')
 def step(context, ):
     url = lancome_url + '/online-game-rankings/list'
@@ -102,10 +103,82 @@ def step(context, gameDate):
         }
         res = from_get(request_parames, url)
 
-        if i > 3:
-            assert res['responseContent']!= None,'第{0}人没有拿到获奖凭证'.format(i)
+<<<<<<< HEAD
+        if i < 3:
+            assert res['responseContent']!=None,'第{0}人没有拿到获奖凭证'.format(i)
         else:
             assert res['responseContent'] == None,'第{0}人不应该拿到获奖凭证'.format(i)
+
+
+@Given(u'{gameDate1}获得过优惠券')
+def step(context, gameDate1):
+    url = lancome_url + '/online-game-rankings/list'
+
+    gameType = 'LITTLE_BLACK_BOTTLE'
+    request_params = {
+        'gameDate': gameDate1,
+        'gameType': gameType
+    }
+    res = from_get(request_params, url)
+    rank_list = res['responseContent']
+    lenght = len(rank_list)
+    if lenght == 0:
+        assert False, "排行榜数据为空"
+    url = lancome_url + '/game-prizes/get-by-mixnick'
+    for i in range(lenght):
+        item = rank_list[i]
+        mixnick = item['mixNick']
+        request_parames = {
+            'mixNick': mixnick,
+            'gameType': gameType
+        }
+        res = from_get(request_parames, url)
+
+        if i < 3:
+            assert res['responseContent']!=None,'第{0}人没有拿到获奖凭证'.format(i)
+=======
+        if i > 3:
+            assert res['responseContent']!= None,'第{0}人没有拿到获奖凭证'.format(i)
+>>>>>>> 999a142d923ccf2aacf45149a21ab02f83817c73
+        else:
+            assert res['responseContent'] == None,'第{0}人不应该拿到获奖凭证'.format(i)
+    context.firstmixNick=rank_list[0]['mixNick']
+@Then(u'{gameDate2},依然是前三名,不会获得优惠券')
+def step(context, gameDate2):
+    url = lancome_url + '/online-game-rankings/list'
+
+    gameType = 'LITTLE_BLACK_BOTTLE'
+    request_params = {
+        'gameDate': gameDate2,
+        'gameType': gameType
+    }
+    res = from_get(request_params, url)
+    first_gamePoint=res['responseContent'][0]['gamePoint']
+
+    url = lancome_url + '/nascent/point/onlineadd'
+    mixNick=context.firstmixNick
+    gamePoint = first_gamePoint+1
+    gameType = context.gameType
+    request_body = {
+        'mixNick': mixNick,
+        'gameType': gameType,
+        'gameUsedSeconds': 10,
+        'gamePoint': gamePoint
+    }
+    from_post(request_body, url)
+    url=lancome_url + '/game-prizes/get-by-mixnick'
+
+    request_parames = {
+        'mixNick': mixNick,
+        'gameType': gameType
+    }
+
+    res = from_get(request_parames, url)
+    assert res['responseContent'][0] ==0,'此用户获得两次正装奖励'
+
+
+
+
 
 
 

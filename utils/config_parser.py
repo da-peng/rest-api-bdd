@@ -20,7 +20,10 @@ if __name__ == '__main__':
     #common_config_path='/conf/lancome/env.ini'
 
     config = config(common_config_path)
-    print(conf)
-    level = config['log.level']['level']
+
+    #level = config['log.level']['level']
     #url=config['test.service']['URL']
+    print(config.sections())
+    print(config.options('log.level'))
+
 

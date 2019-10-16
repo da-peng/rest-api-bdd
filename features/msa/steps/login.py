@@ -11,7 +11,6 @@ post = HttpUtils().post
 def step_impl(context, path):
     context.url = context.host + path
 
-
 @Given(u"{role}账号{account}和{password}")
 def step_impl(context, role, account, password):
     response = post({
