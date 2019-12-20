@@ -7,5 +7,5 @@ Feature: 赚金币
     Then 断言赚取抽卡机会接口访问成功
 
     Examples:
-      | sourceType |  mixNick                                         |
-      | COLLECT    |  t01wOCuTUaovrlmpm62Dhxp2Lv9XsO5gA7hZ+91xlFG3/Y= |
+      | sourceType | mixNick |
+      | SIGN_IN    | aa      |

@@ -19,7 +19,7 @@ class BaseHttp(object):
         # dict 转json str对象
         request_bodys = json.dumps(request_body)
 
-        log.debug('REQUEST_body')
+        log.debug('REQUEST_BODY')
         #       log.debug(request_bodys)
         log.debug(json.dumps(json.loads(request_bodys), indent=2, ensure_ascii=False))
 
@@ -27,6 +27,9 @@ class BaseHttp(object):
             "content-type": "application/json;charset=UTF-8",
             ** header
         }
+        log.debug('HEADERS')
+        log.debug(json.dumps(headers, indent=2, ensure_ascii=False))
+
         response = requests.post(url, headers=headers, json=request_body)
         log.debug('RESPONSE')
         log.debug(json.dumps(json.loads(response.text), indent=2, ensure_ascii=False))
@@ -41,7 +44,7 @@ class BaseHttp(object):
         # dict 转json str对象
         request_bodys = json.dumps(request_body)
 
-        log.debug('REQUEST_body')
+        log.debug('REQUEST_BODY')
         #       log.debug(request_bodys)
         log.debug(json.dumps(json.loads(request_bodys), indent=2, ensure_ascii=False))
 
@@ -49,6 +52,9 @@ class BaseHttp(object):
             "content-type": "application/json;charset=UTF-8",
             ** header
         }
+        log.debug('HEADERS')
+        log.debug(json.dumps(headers, indent=2, ensure_ascii=False))
+
         response = requests.get(url, headers=headers, json=request_body)
         log.debug('RESPONSE')
         log.debug(json.dumps(json.loads(response.text), indent=2, ensure_ascii=False))
@@ -62,6 +68,9 @@ class BaseHttp(object):
             "content-type": "application/x-www-form-urlencoded",
             **header
         }
+        log.debug('HEADERS')
+        log.debug(json.dumps(headers, indent=2, ensure_ascii=False))
+
         request = requests.Request('POST', url, headers=headers, data=request_body)
         prepared = request.prepare()
 
@@ -81,6 +90,9 @@ class BaseHttp(object):
             "content-type": "application/x-www-form-urlencoded",
             **header
         }
+        log.debug('HEADERS')
+        log.debug(json.dumps(headers, indent=2, ensure_ascii=False))
+
         request = requests.Request('GET', url, headers=headers, params=request_params)
         prepared = request.prepare()
 

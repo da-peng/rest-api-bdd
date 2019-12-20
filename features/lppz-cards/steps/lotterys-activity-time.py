@@ -2,23 +2,19 @@ from behave import *
 from utils.base_http import BaseHttp
 import re
 
-get = BaseHttp().get
+form_get = BaseHttp().form_get
 
 
-@Given(u'访问获取我的集卡接口{path}')
+@Given(u'访问获取活动时间接口{path}')
 def step(context, path):
     path_list = re.split('{|}', path)
     path_list[1] = context.tenant_code
     context.path = context.host + ''.join(path_list)
 
 
-@When(u'请输入混淆昵称{mixNick}')
-def step(context, mixNick):
+@When(u'简单FROM_GET请求')
+def step(context, ):
     url = context.path
-
-    request_body = {
-        'mixNick': mixNick
-    }
-    response = get(request_body, url, context.headers)
+    response = form_get({},url, context.headers)
     context.statusCode = response['statusCode']
 

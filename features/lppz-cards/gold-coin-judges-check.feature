@@ -6,5 +6,5 @@ Feature: 判断是否获得过相关金币
     Then 断言判断是否获得过相关抽卡接口访问成功
 
     Examples:
-      | mixNick                                         |
-      | t01wOCuTUaovrlmpm62Dhxp2Lv9XsO5gA7hZ+91xlFG3/Y= |
+      | mixNick |
+      | aa      |

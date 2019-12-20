@@ -6,5 +6,5 @@ Feature: 抽奖
     Then 断言抽卡接口访问成功
 
     Examples:
-      | mixNick                                         |
-      | t01wOCuTUaovrlmpm62Dhxp2Lv9XsO5gA7hZ+91xlFG3/Y= |
+      | mixNick |
+      | aa      |

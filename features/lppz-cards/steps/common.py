@@ -2,6 +2,7 @@ from behave import *
 from utils.base_http import BaseHttp
 
 get = BaseHttp().get
+form_get = BaseHttp().form_get
 post = BaseHttp().post
 
 @When(u'请输入混淆昵称{mixNick}')
@@ -10,7 +11,7 @@ def step(context, mixNick):
     requset_params = {
         'mixNick': mixNick
     }
-    response = get(requset_params, url, context.headers)
+    response = form_get(requset_params, url, context.headers)
     context.statusCode = response['statusCode']
 
 # 用于2处接口的feature（address的save和update）

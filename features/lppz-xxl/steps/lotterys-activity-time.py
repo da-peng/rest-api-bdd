@@ -2,7 +2,7 @@ from behave import *
 from utils.base_http import BaseHttp
 import re
 
-get = BaseHttp().get
+form_get = BaseHttp().form_get
 
 
 @Given(u'访问获取活动时间接口{path}')
@@ -12,9 +12,9 @@ def step(context, path):
     context.path = context.host + ''.join(path_list)
 
 
-@When(u'简单GET请求')
+@When(u'简单FROM_GET请求')
 def step(context, ):
     url = context.path
-    response = get({},url, context.headers)
+    response = form_get({},url, context.headers)
     context.statusCode = response['statusCode']
 
