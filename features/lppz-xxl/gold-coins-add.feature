@@ -1,4 +1,4 @@
-Feature: 赚金币
+Feature: 赚取游戏机会
 
   Scenario Outline:
     Given 访问赚取游戏机会接口/{tenantCode}/gold-coins/add
@@ -9,4 +9,4 @@ Feature: 赚金币
 
     Examples:
       | sourceType | mixNick |wellWishing|
-      | SIGN_IN    | aa      |           |
+      | SIGN_IN    | aa      |     1      |

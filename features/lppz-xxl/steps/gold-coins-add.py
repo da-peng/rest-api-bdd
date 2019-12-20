@@ -13,7 +13,7 @@ def step(context, path):
 
 
 @When(u'输入任务类型{sourceType}&混淆昵称{mixNick}&新年祝福{wellWishing}')
-def step(context, sourceType,  mixNick,wellWishing):
+def step(context, sourceType, mixNick,wellWishing):
     url = context.path
 
     a = {'wellWishing': wellWishing} if sourceType == 'WELL_WISHING' else {}

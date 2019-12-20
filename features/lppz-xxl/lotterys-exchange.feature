@@ -1,4 +1,4 @@
-Feature: 领取优惠券
+Feature: 兑奖
 
   Scenario Outline:
     Given 访问兑奖接口/{tenantCode}/lotterys/exchange，输入混淆昵称<mixNick>&奖品类型<type>&奖品记录ID<prizeId>
@@ -6,5 +6,5 @@ Feature: 领取优惠券
     Then 断言兑奖成功
 
     Examples:
-      | mixNick | type    |
-      | aa      | GIFT_BOX |
+      | mixNick | type    |prizeId|
+      | aa      | GIFT_BOX |   11   |
