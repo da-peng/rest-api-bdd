@@ -1,9 +1,9 @@
-Feature: 获取抽奖奖品
+Feature: 获取我的集卡
 
   Scenario Outline:
-    Given 访问获取抽奖奖品接口/{tenantCode}/lotterys/prize
+    Given 访问获取我的集卡接口/{tenantCode}/lotterys/cards
     When 请输入混淆昵称<mixNick>
-    Then 断言获取抽奖奖品接口访问成功
+    Then 断言获取我的集卡接口访问成功
 
     Examples:
       | mixNick                                         |

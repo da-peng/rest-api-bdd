@@ -3,11 +3,11 @@ from behave import *
 from utils.time_manage import *
 from service.coupon_info import *
 from service.product_info import *
-from utils.http_util import HttpUtils
+from utils.base_http import BaseHttp
 from random import *
 import re
 
-postByToken = HttpUtils().postByToken
+postByToken = BaseHttp().postByToken
 
 @Given(u"访问推荐有奖创建接口 {path}")
 def step_impl(context, path):

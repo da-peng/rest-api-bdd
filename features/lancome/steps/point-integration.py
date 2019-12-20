@@ -1,9 +1,9 @@
 from behave import *
-from utils.http_util import HttpUtils
+from utils.base_http import BaseHttp
 from features.lancome.steps.const import lancome_url
 import json
-from_post = HttpUtils().form_post
-from_get = HttpUtils().form_get
+from_post = BaseHttp().form_post
+from_get = BaseHttp().form_get
 GAME_TYPE = 'LITTLE_BLACK_BOTTLE'
 
 @Given(u'{mixNick}获得游戏分数{gamePoint}分')

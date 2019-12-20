@@ -1,9 +1,10 @@
-Feature: 获取幸运值
+Feature: 获取抽奖奖品
 
   Scenario Outline:
-    Given 访问获取幸运值接口/{tenantCode}/gold-coins/get-lucks
+    Given 访问获取我的奖品接口/{tenantCode}/lotterys/prize
     When 请输入混淆昵称<mixNick>
-    Then 断言获取幸运值成功
+    Then 断言获取我的奖品接口访问成功
+
     Examples:
       | mixNick                                         |
       | t01wOCuTUaovrlmpm62Dhxp2Lv9XsO5gA7hZ+91xlFG3/Y= |

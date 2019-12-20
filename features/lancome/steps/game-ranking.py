@@ -1,8 +1,8 @@
 from behave import *
-from utils.http_util import HttpUtils
+from utils.base_http import BaseHttp
 from features.lancome.steps.const import lancome_url
 
-from_get = HttpUtils().form_get
+from_get = BaseHttp().form_get
 @Given(u'请求游戏排名接口{path}')
 def step(context,path):
     context.url= lancome_url+path

@@ -13,11 +13,16 @@ def before_scenario(context, scenario):
     if env is None:
         env = config['env']['TEST_ENV']
     context.env = env
+    if env == 'test':
+        service_cap = config['test.service']
+    elif env == 'uat':
+        service_cap = config['uat.service']
+    elif env == 'pro':
+        service_cap = config['pro.service']
 
-    for i in ['test','uat','pro']:
-        if env == i:
-            service_cap = config[i+'.service']
-            context.host = service_cap['URL']
+    context.host = service_cap['URL']
+    context.tenant_code = service_cap['TENANT_CODE']
+    context.token = service_cap['TOKEN']
 
 
 def after_step(context, step):

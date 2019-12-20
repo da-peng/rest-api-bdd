@@ -1,9 +1,7 @@
 #encoding=utf-8
 from  configparser import  ConfigParser as conf
 import os
-
 current_dir = os.path.dirname(os.path.dirname(__file__))
-
 
 def config(path):
     config = conf()

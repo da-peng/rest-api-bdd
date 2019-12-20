@@ -1,11 +1,11 @@
 from behave import *
-from utils.http_util import HttpUtils
+from utils.base_http import BaseHttp
 import re
 
-formpost = HttpUtils().form_postBytoken
+post = BaseHttp().post
 
 
-@Given(u'访问抽奖接口{path}，混淆昵称{mixNick}')
+@Given(u'访问抽卡接口{path}，混淆昵称{mixNick}')
 def step(context, path, mixNick):
     path_list = re.split('{|}', path)
     path_list[1] = context.tenant_code
@@ -15,10 +15,6 @@ def step(context, path, mixNick):
     requset_params = {
         'mixNick': mixNick
     }
-    response = formpost(requset_params, url, context.token)
+    response = post(requset_params, url, context.headers)
     context.statusCode = response['statusCode']
 
-
-@Then(u'断言接口访问成功')
-def step(context):
-    assert context.statusCode == '20000', '接口访问失败'

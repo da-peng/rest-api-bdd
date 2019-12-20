@@ -1,11 +1,11 @@
 from features.lancome.steps.const import lancome_url
 from behave import *
-from utils.http_util import HttpUtils
+from utils.base_http import BaseHttp
 from utils.log_manage import Log as log
 import time
 
-from_get = HttpUtils().form_get
-from_post = HttpUtils().form_post
+from_get = BaseHttp().form_get
+from_post = BaseHttp().form_post
 
 
 @Given(u'获取第一名的分数和混淆昵称, 参数{gameType}')

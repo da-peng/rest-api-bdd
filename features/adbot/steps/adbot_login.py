@@ -1,8 +1,8 @@
 from behave import *
-from utils.http_util import HttpUtils
+from utils.base_http import BaseHttp
 from utils.file_manage import add
 
-post=HttpUtils().post
+post=BaseHttp().post
 
 
 @Given(u'访问登录接口{path}')

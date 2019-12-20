@@ -3,10 +3,10 @@ from behave import *
 from service.activity_group import *
 from utils.time_manage import *
 from utils.log_manage import Log as log
-from utils.http_util import HttpUtils
+from utils.base_http import BaseHttp
 import re
 
-postByToken = HttpUtils().postByToken
+postByToken = BaseHttp().postByToken
 
 Parameter = {
     'uat': {

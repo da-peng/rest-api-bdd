@@ -1,10 +1,10 @@
 # encoding=utf-8
 from behave import *
-from utils.http_util import HttpUtils
+from utils.base_http import BaseHttp
 import random
 import re
 
-postByToken = HttpUtils().postByToken
+postByToken = BaseHttp().postByToken
 
 
 @Given(u"访问商品创建接口 {path}")

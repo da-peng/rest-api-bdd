@@ -2,7 +2,7 @@
 from utils.config_parser import config as conf
 import os
 
-lancome_conf_path = '/conf/lppz/env.ini'
+lancome_conf_path = '/conf/lppz-cards/env.ini'
 # 如果环境不同则，则删除持久化文件，这个还未实现
 
 def before_scenario(context, scenario):
@@ -11,23 +11,19 @@ def before_scenario(context, scenario):
     # 此处需要验证
     config = conf(lancome_conf_path)
     if env is None:
-
         env = config['env']['TEST_ENV']
     context.env = env
-
+    service_cap = ''
     if env == 'test':
         service_cap = config['test.service']
-        context.host = service_cap['URL']
-        context.tenant_code = service_cap['TENANT_CODE']
-        context.token=service_cap['TOKEN']
-
-
     elif env == 'uat':
         service_cap = config['uat.service']
-        context.host = service_cap['URL']
     elif env == 'pro':
         service_cap = config['pro.service']
-        context.host = service_cap['URL']
+    conf_list = ['host','tenant_code','token']
+    for i  in conf_list:
+        context[i] = service_cap[str(i).upper()]
+    print(context)
 
 def after_step(context, step):
     print()

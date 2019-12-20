@@ -1,9 +1,9 @@
 from behave import *
-from utils.http_util import HttpUtils
+from utils.base_http import BaseHttp
 from features.lancome.steps.const import lancome_url
 
 
-from_post = HttpUtils().form_post
+from_post = BaseHttp().form_post
 
 @Given(u'请求游戏结果判断接口{path}')
 def step(context,path):

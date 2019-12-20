@@ -2,12 +2,12 @@
 from behave import *
 from utils.time_manage import *
 from service.product_info import *
-from utils.http_util import HttpUtils
+from utils.base_http import BaseHttp
 from utils.log_manage import Log as log
 from random import *
 import re
 
-postByToken = HttpUtils().postByToken
+postByToken = BaseHttp().postByToken
 
 
 @Given(u"访问创建拼团活动接口 {path}")

@@ -1,8 +1,8 @@
 from behave import *
-from utils.http_util import HttpUtils
+from utils.base_http import BaseHttp
 import re
 
-getbytoken=HttpUtils().getByToken
+getbytoken=BaseHttp().getByToken
 @Given(u'访问数据检索接口{path}')
 def step(context,path):
     path_list=re.split('{|}',path)
