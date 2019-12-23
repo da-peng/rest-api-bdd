@@ -2,11 +2,17 @@ from behave import *
 from utils.base_http import BaseHttp
 import re
 
-get = BaseHttp().get
+post = BaseHttp().post
 
-
-@Given(u'访问开始游戏接口{path}')
-def step(context, path):
+@Given(u'访问开始游戏接口{path}，请输入混淆昵称{mixNick}')
+def step(context, path,mixNick):
     path_list = re.split('{|}', path)
     path_list[1] = context.tenant_code
     context.path = context.host + ''.join(path_list)
+
+    url = context.path
+    requset_params = {
+        'mixNick': mixNick,
+    }
+    response = post(requset_params, url, context.headers)
+    context.statusCode = response['statusCode']
