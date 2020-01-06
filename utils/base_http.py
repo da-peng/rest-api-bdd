@@ -16,8 +16,10 @@ class BaseHttp(object):
         log.debug("RESPONSE STATUS")
 
         log.debug(str(response.status_code))
+
         if response.status_code != 200:
             log.error('Request error!')
+        log.debug('RESPONSE')
         try:
             log.debug(json.dumps(json.loads(response.text), indent=2, ensure_ascii=False))
         except Exception as e:
@@ -44,10 +46,10 @@ class BaseHttp(object):
         prepared = request.prepare()
         log.debug(prepared.method)
         log.debug(prepared.url)
-        log.debug(prepared.body)
+        log.debug('REQUEST_BODY')
+        log.debug(str(prepared.body))
         s = requests.Session()
         response = s.send(prepared)
-        log.debug('RESPONSE')
         self.__check_response(response)
         response = json.loads(response.text)
         return response
@@ -60,7 +62,6 @@ class BaseHttp(object):
         headers = self.__request_headers(header, request_body)
 
         response = requests.post(url, headers=headers, json=request_body)
-        log.debug('RESPONSE')
         self.__check_response(response)
         response = json.loads(response.text)
         return response
@@ -73,7 +74,6 @@ class BaseHttp(object):
         headers = self.__request_headers(header, request_body)
 
         response = requests.get(url, headers=headers, json=request_body)
-        log.debug('RESPONSE')
         self.check_response(response)
         response = json.loads(response.text)
         return response

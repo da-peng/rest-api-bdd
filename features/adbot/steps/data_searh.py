@@ -2,7 +2,7 @@ from behave import *
 from utils.base_http import BaseHttp
 import re
 
-getbytoken=BaseHttp().getByToken
+form_get=BaseHttp().form_get
 @Given(u'访问数据检索接口{path}')
 def step(context,path):
     path_list=re.split('{|}',path)
@@ -18,7 +18,7 @@ def step(context,domain,username):
         'pageNum':'1',
         'pageSize':'15'
     }
-    response=getbytoken(requset_params,url,key='admin')
+    response=form_get(requset_params,url,context.headers)
     context.statusCode=response['statusCode']
 @Then(u'搜索成功')
 def step(context):

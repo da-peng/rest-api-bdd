@@ -1,6 +1,6 @@
 from behave import *
 from utils.base_http import BaseHttp
-from utils.file_manage import add
+from utils.file_manage import *
 
 post=BaseHttp().post
 
@@ -8,8 +8,8 @@ post=BaseHttp().post
 @Given(u'访问登录接口{path}')
 def step(context,path):
     context.url=context.host+path
-@When(u'输入账号{username}密码{password}角色{role}')
-def step(context,username,password,role):
+@When(u'输入账号{username}密码{password}')
+def step(context,username,password):
     response=post(
         {
             "username": username,
@@ -19,11 +19,8 @@ def step(context,username,password,role):
     )
 
     context.token=response['responseContent']['token']
-    context.role=role
     context.statusCode=response['statusCode']
 @Then(u'登陆成功，持久化存储!')
 def step(context):
     assert context.statusCode=='20000','登录失败！！！'
-    key=context.role
-    dict={key:context.token}
-    add(dict)
+    write(context.token)

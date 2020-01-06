@@ -1,6 +1,7 @@
 # encoding=utf-8
 from utils.config_parser import config as conf
 import os
+from  utils.file_manage import *
 
 lancome_conf_path = '/conf/adbot/env.ini'
 # 如果环境不同则，则删除持久化文件，这个还未实现
@@ -22,7 +23,7 @@ def before_scenario(context, scenario):
 
     context.host = service_cap['URL']
     context.tenant_code = service_cap['TENANT_CODE']
-    context.token = service_cap['TOKEN']
+    context.headers={'token':read()}
 
 def after_step(context, step):
     print()
