@@ -6,5 +6,7 @@ Feature: 抽奖
     Then 断言抽卡接口访问成功
 
     Examples:
-      | mixNick |gameLevel|gameScore|
-      | aa      |      1   |     1    |
+      | mixNick | gameLevel | gameScore |
+      | aa      | 1         | 1000      |
+      | aa      | 2         | 2000     |
+      | aa      | 3         | 3000     |
