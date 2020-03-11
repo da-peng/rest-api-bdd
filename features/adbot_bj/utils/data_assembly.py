@@ -6,7 +6,7 @@ request_params = 'adbot_bj/request-params/'
 test_data = 'adbot_bj/test-data'
 project_path = os.path.abspath(os.path.dirname(__file__)).split('adbot_bj')[0]
 from utils.log_manage import Log as log
-
+import copy
 def assembly_data(file_name):
     test_data_path = os.path.join(project_path, test_data, file_name)
     request_params_path = os.path.join(project_path, request_params, file_name + '.json')
@@ -20,8 +20,9 @@ def assembly_data(file_name):
     for i in test_data_lines:
         try:
             request_data = jsonData(i, params)
+            # print(request_data)
             if request_data !={}:
-                data_list.append(request_data)
+               data_list.append(copy.copy(request_data))
         except Exception as e:
             log.debug(str(e))
             continue
