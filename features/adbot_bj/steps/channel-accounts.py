@@ -6,7 +6,7 @@ from utils.base_http import BaseHttp
 form_get = BaseHttp().form_get
 
 
-@Given(u'访问品牌渠道账号信息获取接口{path}')
+@Given(u'访问品牌渠道账号信息获取{path}')
 def step(context, path):
     context.url = context.host + path
 

@@ -19,7 +19,8 @@ def assembly_data(file_name):
     data_list = []
     for i in test_data_lines:
         request_data = jsonData(i, params)
-        data_list.append(request_data)
+        if request_data !={}:
+            data_list.append(request_data)
     # print(data_list)
     return data_list
 
@@ -27,9 +28,10 @@ def assembly_data(file_name):
 def jsonData(test_data, params):
     if isinstance(test_data, str) and isinstance(params, dict):
         keys = list(params.keys())
-        # print(keys)
+
         data_items = test_data.strip('\n').split(';')
-        # print(data_items)
+        print(data_items,len(data_items))
+        print(len(keys))
         # print(keys[1])
         if len(data_items) == len(params):
             for i in range(len(keys)):
@@ -37,8 +39,9 @@ def jsonData(test_data, params):
                     params[keys[i]] = data_items[i]
                 else:
                     params[keys[i]] = int(data_items[i])
-
-    return params
+            return params
+        else:
+            return {}
 
 
 if __name__ == '__main__':

@@ -2,7 +2,7 @@
 Feature: 品牌渠道账号信息获取
 
   Scenario Outline: 品牌渠道账号信息获取
-    Given 访问品牌渠道账号信息获取接口/boss/api/system/channel-accounts/list
+    Given 访问品牌渠道账号信息获取/boss/api/system/channel-accounts/list
     When 品牌渠道账号信息参数<pageNum>&<pageSize>&<brandCode>&<channelCode>
     Then 断言ResponseContent->list不为空
 
