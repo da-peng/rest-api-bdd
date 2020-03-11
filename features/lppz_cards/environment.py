@@ -2,7 +2,7 @@
 from utils.config_parser import config as conf
 import os
 
-lancome_conf_path = '/conf/lppz-cards/env.ini'
+lancome_conf_path = '/conf/lppz_cards/env.ini'
 # 如果环境不同则，则删除持久化文件，这个还未实现
 
 def before_scenario(context, scenario):

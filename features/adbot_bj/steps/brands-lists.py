@@ -17,5 +17,5 @@ def step(context, pageNum, pageSize):
         'pageNum': int(pageNum),
         'pageSize': int(pageSize),
     }
-    response = form_get(requset_params, url, context.headers)
+    response = form_get(requset_params, url)
     context.responseContent = response['responseContent']

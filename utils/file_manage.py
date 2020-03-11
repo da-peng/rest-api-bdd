@@ -49,9 +49,9 @@ def add(dict_data):
     with open(path, 'wb') as fp:
         if  isNone:
             for i in dict_data.keys():
-                # data[i] = []
+                # request-params[i] = []
                 data[i]=dict_data[i]
-            # print(data)
+            # print(request-params)
             pickle.dump(data, fp)
         elif isinstance(table,dict): # value 是一个List
             for i in dict_data.keys():

@@ -17,7 +17,7 @@ services:
     volumes:
 #     mac 下根目录～
       - ~/sonarqube/conf:/opt/sonarqube/conf
-      - ~/sonarqube/data:/opt/sonarqube/data
+      - ~/sonarqube/request-params:/opt/sonarqube/request-params
       - ~/sonarqube/logs:/opt/sonarqube/logs
       - ~/sonarqube/extensions:/opt/sonarqube/extensions
     links:
