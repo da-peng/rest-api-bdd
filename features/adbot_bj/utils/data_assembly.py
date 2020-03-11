@@ -5,7 +5,7 @@ import json
 request_params = 'adbot_bj/request-params/'
 test_data = 'adbot_bj/test-data'
 project_path = os.path.abspath(os.path.dirname(__file__)).split('adbot_bj')[0]
-
+from utils.log_manage import Log as log
 
 def assembly_data(file_name):
     test_data_path = os.path.join(project_path, test_data, file_name)
@@ -18,9 +18,13 @@ def assembly_data(file_name):
         test_data_lines = fp.readlines()
     data_list = []
     for i in test_data_lines:
-        request_data = jsonData(i, params)
-        if request_data !={}:
-            data_list.append(request_data)
+        try:
+            request_data = jsonData(i, params)
+            if request_data !={}:
+                data_list.append(request_data)
+        except Exception as e:
+            log.debug(str(e))
+            continue
     # print(data_list)
     return data_list
 
@@ -28,10 +32,7 @@ def assembly_data(file_name):
 def jsonData(test_data, params):
     if isinstance(test_data, str) and isinstance(params, dict):
         keys = list(params.keys())
-
         data_items = test_data.strip('\n').split(';')
-        print(data_items,len(data_items))
-        print(len(keys))
         # print(keys[1])
         if len(data_items) == len(params):
             for i in range(len(keys)):
@@ -41,7 +42,8 @@ def jsonData(test_data, params):
                     params[keys[i]] = int(data_items[i])
             return params
         else:
-            return {}
+            raise Exception('组装参数长度不一致:\n{0}\n长度:{1} 实际参数长度:{2} ,'
+                            .format(data_items,len(data_items),len(params)))
 
 
 if __name__ == '__main__':
