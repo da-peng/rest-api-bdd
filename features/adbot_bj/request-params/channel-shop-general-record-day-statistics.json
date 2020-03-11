@@ -1,0 +1,22 @@
+{
+	"brandCode": "",
+	"channelCode": "",
+	"channelShopCode": "",
+	"channelShopName": "",
+	"dayDate": "",
+	"uv": "",
+	"pv": "",
+	"avgUv": "",
+	"avgPv": "",
+	"topUv": "",
+	"topPv": "",
+	"stayDuration": 0,
+	"avgStayDuration": 0,
+	"topStayDuration": 0,
+	"bounceRate": 0,
+	"avgBounceRate": 0,
+	"topBounceRate": 0,
+	"sourceFlow": "",
+	"targetFlow": "",
+	"advPv": 0
+}
