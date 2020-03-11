@@ -7,11 +7,12 @@ form_get=BaseHttp().form_get
 def step(context,path):
     path_list=re.split('{|}',path)
     path_list[1]=context.tenant_code
-    context.path=context.host+''.join(path_list)
+    context.url=context.host+''.join(path_list)
 
 @When(u'输入参数{domain}&{username}')
 def step(context,domain,username):
-    url=context.path
+    url=context.url
+
     requset_params={
         'domain':domain,
         'username':username,

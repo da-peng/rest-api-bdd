@@ -3,7 +3,7 @@ from utils.config_parser import config as conf
 import os
 from  utils.file_manage import *
 
-lancome_conf_path = '/conf/adbot/env.ini'
+lancome_conf_path = '/conf/adbot-gz/env.ini'
 # 如果环境不同则，则删除持久化文件，这个还未实现
 
 def before_scenario(context, scenario):

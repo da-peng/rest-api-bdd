@@ -20,6 +20,7 @@ def step(context,username,password):
 
     context.token=response['responseContent']['token']
     context.statusCode=response['statusCode']
+    
 @Then(u'登陆成功，持久化存储!')
 def step(context):
     assert context.statusCode=='20000','登录失败！！！'
