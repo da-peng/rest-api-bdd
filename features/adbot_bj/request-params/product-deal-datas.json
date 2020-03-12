@@ -1,0 +1,17 @@
+{
+	"tenantCode": "",
+	"brandCode": "",
+	"channelCode": "",
+	"thirdCode": "",
+	"dayDate": "",
+	"formationGroupSaleCount": 0,
+	"formationGroupSaleAmount": 0,
+	"discountConsumecount": 0,
+	"discountConsumeAmount": 0,
+	"discountRefundcount": 0,
+	"discountRefundAmount": 0,
+	"cardSaleNum": 0,
+	"cardSaleMoney": 0,
+	"cardRefundNum": 0,
+	"cardRefundMoney": 0
+}

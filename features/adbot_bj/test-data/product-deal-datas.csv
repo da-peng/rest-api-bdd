@@ -1,0 +1,4 @@
+tenantCode,brandCode,channelCode,thirdCode,dayDate,formationGroupSaleCount,formationGroupSaleAmount,discountConsumecount,discountConsumeAmount,discountRefundcount,discountRefundAmount,cardSaleNum,cardSaleMoney,cardRefundNum,cardRefundMoney
+str,str,str,str,str,int,int,int,int,int,int,int,int,int,int
+ceshi,awaiting,TEST_CHANNEL,1408,2020-03-12 15:53:09,1511,1057,1399,1042,1314,899,947,1561,1307,535
+ceshi,awaiting,TEST_CHANNEL,316,2020-03-12 15:53:09,1339,885,268,1055,310,1949,1033,1049,62,1621

@@ -60,8 +60,11 @@ class BaseHttp(object):
         # 允许ascii 显示中文
         # dict 转json str对象
         headers = self.__request_headers(header, request_body)
-
-        response = requests.post(url, headers=headers, json=request_body)
+        try:
+            response = requests.post(url, headers=headers, json=request_body)
+        except Exception as e:
+            print('Connection Error %s' %str(e))
+            raise  Exception('Connection Error %s' %str(e))
         self.__check_response(response)
         response = json.loads(response.text)
         return response
