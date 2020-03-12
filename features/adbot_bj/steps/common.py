@@ -25,12 +25,12 @@ def step(context):
 def step(context, file_name):
     request_list = assembly_data(file_name)
     if request_list==[]:
-       raise Exception('请求测试数据组装异常')
+       raise Exception('测试数据组装异常')
     url = context.url
     uid = str(uuid.uuid4())
-    suid = ''.join(uid.split('-'))
+    # suid = ''.join(uid.split('-'))
     # headers = {}
-    headers = {'uuid': suid}
+    headers = {'uuid': uid}
     response = post(request_list, url, headers)
     context.statusCode = response['statusCode']
 

@@ -7,61 +7,125 @@ test_data = 'adbot_bj/test-data'
 project_path = os.path.abspath(os.path.dirname(__file__)).split('adbot_bj')[0]
 from utils.log_manage import Log as log
 import copy
-
-def touchFileByParams(test_data_path,params):
+import csv
+from utils.time_manage import *
+import random
+def touchFileByParams(test_data_path, params):
     keys = list(params.keys())
-    keysName=';'.join(keys)
+    # keysName=';'.join(keys)+'\n'
+    vlaueType = []
     if not os.path.exists(test_data_path):
-        with open(test_data_path,'w') as fp:
-            fp.writelines(keysName)
+        for i in range(len(keys)):
+            if isinstance(params[keys[i]], str):
+                vlaueType.append('str')
+            elif isinstance(params[keys[i]], int):
+                vlaueType.append('int')
+    # lines= []
+    # lines.append(keysName)
+    # lines.append(';'.join(vlaueType))
+        size = 100
+        with open(test_data_path, 'w') as fp:
+            csv_write = csv.writer(fp)
+            csv_write.writerow(keys)
+            csv_write.writerow(vlaueType)
+            generateTestData(keys,vlaueType,csv_write,size)
+
+
+def generateTestData(keys,vlaueType,csv_write,size):
+    for i in  range(size):
+        rowData = []
+        for i in range(len(keys)):
+            keyName = keys[i].lower()
+            if 'time' in keyName or 'date' in keyName and vlaueType[i]=='str':
+                rowData.append(getCurrentTime())
+            elif 'citycode' in keyName:
+                rowData.append('GuangZhou')
+            elif 'brandcode' in keyName:
+                rowData.append('awaiting')
+            elif 'channelcode' in keyName:
+                rowData.append('TEST_CHANNEL')
+            elif 'shopcode' in keyName:
+                rowData.append(random.randint(1234567,12345678))
+            elif 'shopname' in keyName:
+                rowData.append('艾维庭美容纤体SPA(七宝万科广场店)')
+            elif 'cityname' in keyName:
+                rowData.append('广州')
+            elif 'phone' in keyName:
+                rowData.append('15013300167')
+            elif 'orderstatus' in keyName:
+                rowData.append('REFUND')
+            elif 'thirdCode' in keyName:
+                rowData.append(random.randint(1234567,12345678))
+            elif 'userNickName' in keyName:
+                nick = ''
+                for i in range(0, 4):
+                    b = random.randint(0, 4)
+                    if i == b:
+                        c = random.randint(1, 9)
+                        nick  += str(c)
+                    else:
+                        c = chr(random.randint(65, 90))
+                        nick  += str(c)
+                rowData.append(nick)
+            elif 'userId' in keyName:
+                rowData.append(random.randint(1234567,12345678))
+            else:
+                rowData.append(random.randint(19,1999))
+        csv_write.writerow(rowData)
+
 
 def assembly_data(file_name):
-    test_data_path = os.path.join(project_path, test_data, file_name)
+    test_data_path = os.path.join(project_path, test_data, file_name + '.csv')
     request_params_path = os.path.join(project_path, request_params, file_name + '.json')
-
 
     with open(request_params_path, 'r') as fp:
         content = fp.read()
         # print(content, type(content))
     params = json.loads(content)
 
-    touchFileByParams(test_data_path,params)
-
-    with open(test_data_path, 'r') as fp:
-        test_data_lines = fp.readlines()[1:]
+    touchFileByParams(test_data_path, params)
     data_list = []
-    for i in test_data_lines:
-        try:
-            request_data = jsonData(i, params)
-            # print(request_data)
-            if request_data !={}:
-               data_list.append(copy.copy(request_data))
-        except Exception as e:
-            log.debug(str(e))
-            continue
+    count = 0
+    with open(test_data_path, 'r') as fp:
+        csv_read = csv.reader(fp)
+        test_data_lines = csv_read
+        for i in test_data_lines:
+            if count >= 2:
+                try:
+                    request_data = jsonData(i, params)
+                    # print(request_data)
+                    if request_data != {}:
+                        data_list.append(copy.copy(request_data))
+                except Exception as e:
+                    log.debug(str(e))
+                    continue
+            count += 1
     # print(data_list)
     return data_list
 
 
 def jsonData(test_data, params):
-    if isinstance(test_data, str) and isinstance(params, dict):
+    if isinstance(test_data, list) and isinstance(params, dict):
         keys = list(params.keys())
-        data_items = test_data.strip('\n').split(';')
+        data_items = test_data
         # print(keys[1])
         if len(data_items) == len(params):
             for i in range(len(keys)):
-                if isinstance(params[keys[i]],str):
-                    params[keys[i]] = data_items[i]
+                if isinstance(params[keys[i]], str):
+                    params[keys[i]] = data_items[i].strip('').strip('\n')
                 else:
-                    params[keys[i]] = int(data_items[i])
+                    try:
+                        params[keys[i]] = int(data_items[i].strip('').strip('\n'))
+                    except Exception as e:
+                        raise Exception("数据类型错误，此处应该是数字;字段名称{0}".format(keys[i]))
             return params
         else:
             raise Exception('组装参数长度不一致:\n{0}\n长度:{1} 实际参数长度:{2} ,'
-                            .format(data_items,len(data_items),len(params)))
+                            .format(data_items, len(data_items), len(params)))
 
 
 if __name__ == '__main__':
     pass
     # print(os.path.abspath(os.path.dirname(__file__)).split('adbot_bj')[0])
     # print(os.path.join(project_path,test-data,'file_name'))
-    # print(assembly_data('channel-groupon-refund-orders'))
+    print(assembly_data('channel-shop-general-record-day-statistics'))
