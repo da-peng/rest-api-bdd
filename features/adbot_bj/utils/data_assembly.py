@@ -7,15 +7,28 @@ test_data = 'adbot_bj/test-data'
 project_path = os.path.abspath(os.path.dirname(__file__)).split('adbot_bj')[0]
 from utils.log_manage import Log as log
 import copy
+
+def touchFileByParams(test_data_path,params):
+    keys = list(params.keys())
+    keysName=';'.join(keys)
+    if not os.path.exists(test_data_path):
+        with open(test_data_path,'w') as fp:
+            fp.writelines(keysName)
+
 def assembly_data(file_name):
     test_data_path = os.path.join(project_path, test_data, file_name)
     request_params_path = os.path.join(project_path, request_params, file_name + '.json')
+
+
     with open(request_params_path, 'r') as fp:
         content = fp.read()
         # print(content, type(content))
     params = json.loads(content)
+
+    touchFileByParams(test_data_path,params)
+
     with open(test_data_path, 'r') as fp:
-        test_data_lines = fp.readlines()
+        test_data_lines = fp.readlines()[1:]
     data_list = []
     for i in test_data_lines:
         try:
@@ -48,6 +61,7 @@ def jsonData(test_data, params):
 
 
 if __name__ == '__main__':
+    pass
     # print(os.path.abspath(os.path.dirname(__file__)).split('adbot_bj')[0])
     # print(os.path.join(project_path,test-data,'file_name'))
-    print(assembly_data('channel-groupon-refund-orders'))
+    # print(assembly_data('channel-groupon-refund-orders'))

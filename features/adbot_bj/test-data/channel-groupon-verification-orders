@@ -1,3 +1,1 @@
-aiweiting;123451;123456;2012-10-20 1:20:29;备注;1000;2000;中国;Guangzhou;123456;123456;123456;MEI_DIAN
-aiweiting;123452;123456;2012-10-20 1:20:29;备注;1000;2000;中国;Guangzhou;123456;123456;123456;MEI_DIAN
-aiweiting;123453;123456;2012-10-20 1:20:29;备注;1000;2000;中国;Guangzhou;123456;123456;123456;MEI_DIAN
+brandCode;grouponCode;grouponVerificationCode;grouponVerificationTime;grouponRemark;grouponVerificationAmount;grouponVerficationWindAmount;grouponCityName;grouponCityCode;channelShopCode;channelShopName;channelGrouponOrderCode;channelCode
