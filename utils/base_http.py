@@ -4,6 +4,7 @@ import os
 import requests, json
 from utils.log_manage import Log as log
 
+request_status = []
 
 class BaseHttp(object):
 
@@ -67,6 +68,15 @@ class BaseHttp(object):
             raise  Exception('Connection Error %s' %str(e))
         self.__check_response(response)
         response = json.loads(response.text)
+        try:
+            statusCode = response['statusCode']
+        except Exception as e:
+            print(e)
+
+        if statusCode != '20000':
+            request_status.append(0)
+        else:
+            request_status.append(1)
         return response
 
     def get(self, request_body, url, header={}):

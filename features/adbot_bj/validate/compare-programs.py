@@ -10,9 +10,14 @@ def readfile(file_name,column):
     with open(os.path.join(project_path, test_data, file_name + '.csv')) as fp:
         csv_read = csv.reader(fp)
         count = 0
-        for i in readlines:
+        values =[]
+        index = 0
+        for i in csv_read:
             if count ==0:
-
+                index = i.index(column)
+            else:
+                if index!= 0:
+                    values.append(i[index])
             count+=1
 
 
@@ -25,3 +30,4 @@ def compareData(db_name,table_name,column,values):
 
 
 if __name__ =='__main__':
+    pass

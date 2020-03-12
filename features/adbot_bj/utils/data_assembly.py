@@ -37,9 +37,8 @@ def generateTestData(keys,vlaueType,csv_write,size):
         for i in range(len(keys)):
             keyName = keys[i].lower()
 
-            if vlaueType[i]=='str' and  'time' in keyName or 'date' in keyName :
-
-                rowData.append(getCurrentTime())
+            if vlaueType[i]=='str' and 'time' in keyName or 'date' in keyName :
+                rowData.append(getRandomTime())
             elif 'citycode' in keyName:
                 rowData.append('GuangZhou')
             elif 'brandcode' in keyName:
