@@ -111,7 +111,7 @@ def assembly_data(file_name,size):
                     # print(request_data)
                     if request_data != {}:
                         if count%100 ==0:
-                            print(data_list)
+                            # print(data_list)
                             request_bodys.append(copy.deepcopy(data_list))
                             data_list = []
                             data_list.append(copy.copy(request_data))

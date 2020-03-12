@@ -17,7 +17,7 @@ def step(context, api_name, path):
     path_list = re.split('{|}', path)
     path_list[1] = context.tenant_code
     context.url = context.host + ''.join(path_list)
-    logs.debug("接口名称:%s\n" % api_name)
+    logs.debug("接口名称:%s" % api_name)
 
 
 @Then('断言ResponseContent->list不为空')
