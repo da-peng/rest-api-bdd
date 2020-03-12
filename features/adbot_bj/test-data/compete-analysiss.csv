@@ -1,0 +1,4 @@
+tenantCode,brandCode,channelCode,channelShopCode,thirdCode,dayDate,visitorNumRank,reservationFrequencyRank,shopConsumeAmountRank,goodCommentNumRank
+str,str,str,str,str,str,int,int,int,int
+ceshi,awaiting,TEST_CHANNEL,1658862,1033,2020-03-12 15:00:37,1911,50,1428,814
+ceshi,awaiting,TEST_CHANNEL,5452568,317,2020-03-12 15:00:37,1459,38,235,754

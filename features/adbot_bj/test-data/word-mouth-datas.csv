@@ -1,0 +1,4 @@
+tenantCode,brandCode,channelCode,channelShopCode,thirdCode,dayDate,addNewComment,commentAddBadNum,starDazhongdianpingStar,starMeituanStar,commentGoodRatio,selectedCommentNum,allCommentNum,storeCommentSource
+str,str,str,str,str,str,int,int,int,int,int,int,int,int
+ceshi,awaiting,TEST_CHANNEL,1888286,1992,2020-03-12 15:31:00,125,1175,1545,1767,1085,1869,1977,736
+ceshi,awaiting,TEST_CHANNEL,3264240,1740,2020-03-12 15:31:00,232,1877,964,761,1869,1866,746,1163

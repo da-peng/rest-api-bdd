@@ -1,0 +1,22 @@
+{
+	"tenantCode": "",
+	"brandCode": "",
+	"channelCode": "",
+	"channelShopCode": "",
+	"thirdCode": "",
+	"dayDate": "",
+	"exposeUv": 0,
+	"visitUv": 0,
+	"buyUv": 0,
+	"bookUv": 0,
+	"arriveShopBuyUv": 0,
+	"customerReservationShop": 0,
+	"customerGroupBuy": 0,
+	"customerOnlineAdvisory": 0,
+	"customerOnlineAdvisoryAndOfflineRegister": 0,
+	"customer400Phone": 0,
+	"shopPv": 0,
+	"discountOrder": 0,
+	"subjectOrder": 0,
+	"trySubjectOrder": 0
+}

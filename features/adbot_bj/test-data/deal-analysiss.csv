@@ -1,0 +1,4 @@
+tenantCode,brandCode,channelCode,channelShopCode,thirdCode,dayDate,consumeAtShopMoney,consumeNumAtShop,consumeTimesAtShop,shopSportReserveOrder,shopSportReserveRefundOrder
+str,str,str,str,str,str,int,int,int,int,int
+ceshi,awaiting,TEST_CHANNEL,3693557,894,2020-03-12 15:17:56,1588,483,500,787,916
+ceshi,awaiting,TEST_CHANNEL,9033434,1458,2020-03-12 15:17:56,402,290,1311,1478,1705

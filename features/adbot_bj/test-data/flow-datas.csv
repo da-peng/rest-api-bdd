@@ -1,0 +1,4 @@
+tenantCode,brandCode,channelCode,channelShopCode,thirdCode,dayDate,exposeUv,visitUv,buyUv,bookUv,arriveShopBuyUv,customerReservationShop,customerGroupBuy,customerOnlineAdvisory,customerOnlineAdvisoryAndOfflineRegister,customer400Phone,shopPv,discountOrder,subjectOrder,trySubjectOrder
+str,str,str,str,str,str,int,int,int,int,int,int,int,int,int,int,int,int,int,int
+ceshi,awaiting,TEST_CHANNEL,10029581,1775,2020-03-12 15:24:17,357,803,1787,295,1188,1066,1676,1980,1000,15013300167,1693,1014,675,1784
+ceshi,awaiting,TEST_CHANNEL,5873906,1849,2020-03-12 15:24:17,712,685,950,1199,1112,1170,1551,142,1317,15013300167,859,1317,1970,1512

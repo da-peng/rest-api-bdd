@@ -1,0 +1,17 @@
+{
+	"tenantCode": "",
+	"brandCode": "",
+	"channelCode": "",
+	"thirdCode": "",
+	"groupDetailName": "",
+	"groupDetailId": "",
+	"groupDetailSalePrice": 0,
+	"groupDetailPageviews": 0,
+	"groupDetailSaleNum": 0,
+	"groupDetailSaleAmount": 0,
+	"groupDetailWriteOffNum": 0,
+	"groupDetailWriteOffAmount": 0,
+	"groupDetailRefundNum": 0,
+	"groupDetailRefundAmount": 0,
+	"dayDate": ""
+}

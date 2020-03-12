@@ -75,6 +75,7 @@ class BaseHttp(object):
 
         response = requests.get(url, headers=headers, json=request_body)
         self.check_response(response)
+
         response = json.loads(response.text)
         return response
 

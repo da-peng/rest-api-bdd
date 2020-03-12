@@ -36,7 +36,9 @@ def generateTestData(keys,vlaueType,csv_write,size):
         rowData = []
         for i in range(len(keys)):
             keyName = keys[i].lower()
-            if 'time' in keyName or 'date' in keyName and vlaueType[i]=='str':
+
+            if vlaueType[i]=='str' and  'time' in keyName or 'date' in keyName :
+
                 rowData.append(getCurrentTime())
             elif 'citycode' in keyName:
                 rowData.append('GuangZhou')
@@ -57,7 +59,7 @@ def generateTestData(keys,vlaueType,csv_write,size):
             elif 'orderstatus' in keyName:
                 rowData.append('REFUND')
             elif 'thirdCode' in keyName:
-                rowData.append(random.randint(1234567,12345678))
+                rowData.append(chr(random.randint(65, 90))+random.randint(1234567,12345678))
             elif 'userNickName' in keyName:
                 nick = ''
                 for i in range(0, 4):
@@ -149,4 +151,4 @@ if __name__ == '__main__':
     pass
     # print(os.path.abspath(os.path.dirname(__file__)).split('adbot_bj')[0])
     # print(os.path.join(project_path,test-data,'file_name'))
-    print(assembly_data('channel-shop-general-record-day-statistics'))
+    print(assembly_data('deal-analysiss',2))

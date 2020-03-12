@@ -1,0 +1,4 @@
+tenantCode,brandCode,channelCode,thirdCode,groupDetailName,groupDetailId,groupDetailSalePrice,groupDetailPageviews,groupDetailSaleNum,groupDetailSaleAmount,groupDetailWriteOffNum,groupDetailWriteOffAmount,groupDetailRefundNum,groupDetailRefundAmount,dayDate
+str,str,str,str,str,str,int,int,int,int,int,int,int,int,str
+ceshi,awaiting,TEST_CHANNEL,620,1726,2234081,500,1386,548,509,1089,928,856,1830,2020-03-12 15:27:09
+ceshi,awaiting,TEST_CHANNEL,1648,45,2727216,1313,1361,1331,821,1164,966,1738,967,2020-03-12 15:27:09
