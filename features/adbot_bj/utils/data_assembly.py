@@ -42,6 +42,8 @@ def generateTestData(keys,vlaueType,csv_write,size):
                 rowData.append('GuangZhou')
             elif 'brandcode' in keyName:
                 rowData.append('awaiting')
+            elif 'tenantcode' in keyName:
+                rowData.append('ceshi')
             elif 'channelcode' in keyName:
                 rowData.append('TEST_CHANNEL')
             elif 'shopcode' in keyName:
