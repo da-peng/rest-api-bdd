@@ -5,7 +5,6 @@
 接口:deal-analysiss,耗时:93.37 s
 接口:flow-datas,耗时:94.23 s
 接口:group-details,耗时:91.50 s
-接口:product-deal-datas,耗时:29.10 s
 接口:product-write-off-datas,耗时:96.61 s
 接口:shop-reviews,耗时:97.87 s
 接口:word-mouth-datas,耗时:86.83 s
