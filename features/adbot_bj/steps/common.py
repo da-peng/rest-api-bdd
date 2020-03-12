@@ -40,7 +40,7 @@ def log(func):
 @log
 @When(u'读取{file_name}数据文件，完成数据组装')
 def step(context, file_name):
-    size = 2
+    size = 5000
     request_list = assembly_data(file_name, size)
     if not request_list:
         raise Exception('测试数据组装异常')
