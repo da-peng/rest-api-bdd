@@ -10,7 +10,8 @@ import copy
 import csv
 from utils.time_manage import *
 import random
-def touchFileByParams(test_data_path, params):
+
+def touchFileByParams(test_data_path, params,size):
     keys = list(params.keys())
     # keysName=';'.join(keys)+'\n'
     vlaueType = []
@@ -23,7 +24,6 @@ def touchFileByParams(test_data_path, params):
     # lines= []
     # lines.append(keysName)
     # lines.append(';'.join(vlaueType))
-        size = 100
         with open(test_data_path, 'w') as fp:
             csv_write = csv.writer(fp)
             csv_write.writerow(keys)
@@ -68,13 +68,25 @@ def generateTestData(keys,vlaueType,csv_write,size):
                         nick  += str(c)
                 rowData.append(nick)
             elif 'userId' in keyName:
-                rowData.append(random.randint(1234567,12345678))
+                rowData.append(random.randint(199999,19999999))
+            elif 'frequency' in keyName:
+                rowData.append(random.randint(2,99))
+            elif 'url' in keyName:
+                rowData.append('www.ceshi.com')
+            elif 'content' in keyName:
+                rowData.append('课程名称')
+            elif 'address' in keyName:
+                rowData.append('测试地址-测试地址')
+            elif 'channeldistrictname' in keyName:
+                rowData.append('区域名称')
+            elif 'id' in keyName:
+                rowData.append(random.randint(100000,2999999))
             else:
                 rowData.append(random.randint(19,1999))
         csv_write.writerow(rowData)
 
 
-def assembly_data(file_name):
+def assembly_data(file_name,size):
     test_data_path = os.path.join(project_path, test_data, file_name + '.csv')
     request_params_path = os.path.join(project_path, request_params, file_name + '.json')
 
@@ -83,8 +95,9 @@ def assembly_data(file_name):
         # print(content, type(content))
     params = json.loads(content)
 
-    touchFileByParams(test_data_path, params)
+    touchFileByParams(test_data_path, params,size)
     data_list = []
+    request_bodys =[]
     count = 0
     with open(test_data_path, 'r') as fp:
         csv_read = csv.reader(fp)
@@ -95,13 +108,19 @@ def assembly_data(file_name):
                     request_data = jsonData(i, params)
                     # print(request_data)
                     if request_data != {}:
-                        data_list.append(copy.copy(request_data))
+                        if count%100 ==0:
+                            print(data_list)
+                            request_bodys.append(copy.deepcopy(data_list))
+                            data_list = []
+                            data_list.append(copy.copy(request_data))
+                        else:
+                            data_list.append(copy.copy(request_data))
                 except Exception as e:
                     log.debug(str(e))
                     continue
             count += 1
-    # print(data_list)
-    return data_list
+        request_bodys.append(copy.deepcopy(data_list))
+    return request_bodys
 
 
 def jsonData(test_data, params):
