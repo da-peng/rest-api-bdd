@@ -59,17 +59,19 @@ def step(context, file_name):
         fp.writelines('接口:%s,耗时:%.2f s\n' % (file_name, end_time))
 
 
-async def async_post(i, request_list, url):
+async def async_post(i, request_list, url, ):
     uid = str(uuid.uuid4())
     # suid = ''.join(uid.split('-'))
     # headers = {}
     headers = {'uuid': uid}
     response = await post(request_list[i], url, headers)
     statusCode = response['statusCode']
-    assert statusCode == "20000", "请求异常"
+
+    if statusCode != "20000":
+        count += 1
 
 
-@Then(u'断言statusCode===20000')
-def step(context):
-    pass
+# @Then(u'断言statusCode===20000')
+# def step(context):
+#     pass
     # assert context.statusCode == "20000", "请求异常"
