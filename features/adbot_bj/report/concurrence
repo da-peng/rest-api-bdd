@@ -7,4 +7,12 @@
 接口:group-details,耗时:91.50 s
 接口:product-write-off-datas,耗时:96.61 s
 接口:shop-reviews,耗时:97.87 s
-接口:word-mouth-datas,耗时:86.83 s
+接口:word-mouth-datas,耗时:86.83 s接口:product-deal-datas,耗时:0.24 s
+接口:product-deal-datas,耗时:17.08 s
+接口:product-deal-datas,耗时:16.70 s
+接口:product-deal-datas,耗时:0.24 s
+接口:product-deal-datas,耗时:0.24 s
+接口:product-deal-datas,耗时:0.26 s
+接口:product-deal-datas,耗时:0.23 s
+接口:product-deal-datas,耗时:0.22 s
+接口:product-deal-datas,耗时:17.73 s

@@ -11,7 +11,8 @@ import csv
 from utils.time_manage import *
 import random
 
-def touchFileByParams(test_data_path, params,size):
+
+def touchFileByParams(test_data_path, params, size):
     keys = list(params.keys())
     # keysName=';'.join(keys)+'\n'
     vlaueType = []
@@ -21,23 +22,26 @@ def touchFileByParams(test_data_path, params,size):
                 vlaueType.append('str')
             elif isinstance(params[keys[i]], int):
                 vlaueType.append('int')
-    # lines= []
-    # lines.append(keysName)
-    # lines.append(';'.join(vlaueType))
+        # lines= []
+        # lines.append(keysName)
+        # lines.append(';'.join(vlaueType))
         with open(test_data_path, 'w') as fp:
             csv_write = csv.writer(fp)
             csv_write.writerow(keys)
             csv_write.writerow(vlaueType)
-            generateTestData(keys,vlaueType,csv_write,size)
+            generateTestData(keys, vlaueType, csv_write, size)
 
 
-def generateTestData(keys,vlaueType,csv_write,size):
-    for i in  range(size):
+
+
+def generateTestData(keys, vlaueType, csv_write, size):
+    count = 100000
+    for i in range(size):
         rowData = []
         for i in range(len(keys)):
             keyName = keys[i].lower()
 
-            if vlaueType[i]=='str' and 'time' in keyName or 'date' in keyName :
+            if vlaueType[i] == 'str' and 'time' in keyName or 'date' in keyName:
                 rowData.append(getRandomTime())
             elif 'citycode' in keyName:
                 rowData.append('GuangZhou')
@@ -48,7 +52,7 @@ def generateTestData(keys,vlaueType,csv_write,size):
             elif 'channelcode' in keyName:
                 rowData.append('TEST_CHANNEL')
             elif 'shopcode' in keyName:
-                rowData.append(random.randint(1234567,12345678))
+                rowData.append(random.randint(1234567, 12345678))
             elif 'shopname' in keyName:
                 rowData.append('艾维庭美容纤体SPA(七宝万科广场店)')
             elif 'cityname' in keyName:
@@ -57,23 +61,25 @@ def generateTestData(keys,vlaueType,csv_write,size):
                 rowData.append('15013300167')
             elif 'orderstatus' in keyName:
                 rowData.append('REFUND')
-            elif 'thirdCode' in keyName:
-                rowData.append(chr(random.randint(65, 90))+random.randint(1234567,12345678))
-            elif 'userNickName' in keyName:
+            elif 'thirdcode' in keyName:
+                rowData.append('test' + str(count))
+                count += 1
+                # print(count)
+            elif 'usernickname' in keyName:
                 nick = ''
                 for i in range(0, 4):
                     b = random.randint(0, 4)
                     if i == b:
                         c = random.randint(1, 9)
-                        nick  += str(c)
+                        nick += str(c)
                     else:
                         c = chr(random.randint(65, 90))
-                        nick  += str(c)
+                        nick += str(c)
                 rowData.append(nick)
-            elif 'userId' in keyName:
-                rowData.append(random.randint(199999,19999999))
+            elif 'userid' in keyName:
+                rowData.append(random.randint(199999, 19999999))
             elif 'frequency' in keyName:
-                rowData.append(random.randint(2,99))
+                rowData.append(random.randint(2, 99))
             elif 'url' in keyName:
                 rowData.append('www.ceshi.com')
             elif 'content' in keyName:
@@ -83,13 +89,13 @@ def generateTestData(keys,vlaueType,csv_write,size):
             elif 'channeldistrictname' in keyName:
                 rowData.append('区域名称')
             elif 'id' in keyName:
-                rowData.append(random.randint(100000,2999999))
+                rowData.append(random.randint(100000, 2999999))
             else:
-                rowData.append(random.randint(19,1999))
+                rowData.append(random.randint(19, 1999))
         csv_write.writerow(rowData)
 
 
-def assembly_data(file_name,size):
+def assembly_data(file_name, size):
     test_data_path = os.path.join(project_path, test_data, file_name + '.csv')
     request_params_path = os.path.join(project_path, request_params, file_name + '.json')
 
@@ -98,9 +104,9 @@ def assembly_data(file_name,size):
         # print(content, type(content))
     params = json.loads(content)
 
-    touchFileByParams(test_data_path, params,size)
+    touchFileByParams(test_data_path, params, size)
     data_list = []
-    request_bodys =[]
+    request_bodys = []
     count = 0
     with open(test_data_path, 'r') as fp:
         csv_read = csv.reader(fp)
@@ -111,7 +117,7 @@ def assembly_data(file_name,size):
                     request_data = jsonData(i, params)
                     # print(request_data)
                     if request_data != {}:
-                        if count%100 ==0:
+                        if count % 100 == 0:
                             # print(data_list)
                             request_bodys.append(copy.deepcopy(data_list))
                             data_list = []
@@ -150,4 +156,4 @@ if __name__ == '__main__':
     pass
     # print(os.path.abspath(os.path.dirname(__file__)).split('adbot_bj')[0])
     # print(os.path.join(project_path,test-data,'file_name'))
-    print(assembly_data('deal-analysiss',2))
+    print(assembly_data('product-deal-datas', 2))
