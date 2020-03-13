@@ -1,18 +1,25 @@
-接口:compete-analysiss,耗时:106.00 s
-接口:course-orders,耗时:107.37 s
-接口:compete-analysiss,耗时:87.97 s
-接口:compete-analysiss,耗时:81.64 s
-接口:deal-analysiss,耗时:93.37 s
-接口:flow-datas,耗时:94.23 s
-接口:group-details,耗时:91.50 s
-接口:product-write-off-datas,耗时:96.61 s
-接口:shop-reviews,耗时:97.87 s
-接口:word-mouth-datas,耗时:86.83 s接口:product-deal-datas,耗时:0.24 s
-接口:product-deal-datas,耗时:17.08 s
-接口:product-deal-datas,耗时:16.70 s
-接口:product-deal-datas,耗时:0.24 s
-接口:product-deal-datas,耗时:0.24 s
-接口:product-deal-datas,耗时:0.26 s
-接口:product-deal-datas,耗时:0.23 s
-接口:product-deal-datas,耗时:0.22 s
-接口:product-deal-datas,耗时:17.73 s
+1000  11 个请求
+接口:course-orders,耗时:11.89 s
+接口:compete-analysiss,耗时:14.92 s
+接口:deal-analysiss,耗时:15.66 s
+接口:flow-datas,耗时:15.66 s
+接口:group-details,耗时:15.52 s
+接口:product-deal-datas,耗时:15.45 s
+接口:product-write-off-datas,耗时:15.19 s
+接口:shop-reviews,耗时:10.28 s
+接口:word-mouth-datas,耗时:15.15 s
+3000  31个请求
+接口:compete-analysiss,耗时:44.69 s
+接口:course-orders,耗时:30.37 s
+接口:deal-analysiss,耗时:44.93 s
+接口:flow-datas,耗时:45.76 s
+接口:product-write-off-datas,耗时:46.17 s
+接口:shop-reviews,耗时:32.07 s     *
+接口:word-mouth-datas,耗时:47.02 s
+接口:product-deal-datas,耗时:46.64 s
+接口:group-details,耗时:45.77 s
+###
+接口:shop-reviews,耗时:31.61 s  *
+接口:shop-reviews,耗时:32.43 s
+接口:card-orders,耗时:30.07 s
+接口:card-orders,耗时:31.31 s

@@ -72,7 +72,7 @@ class BaseHttp(object):
             statusCode = response['statusCode']
         except Exception as e:
             print(e)
-
+        global request_status
         if statusCode != '20000':
             request_status.append(0)
         else:

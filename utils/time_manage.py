@@ -20,7 +20,7 @@ def getRandomTime():
     global start
     start += 1 * 24 * 60 * 60
     date_touple = time.localtime(start)  # 将时间戳生成时间元组
-    date = time.strftime("%Y-%m-%d", date_touple)  # 将时间元组转成格式化字符串（1976-05-21）
+    date = time.strftime("%Y-%m-%d %H:%M:%S", date_touple)  # 将时间元组转成格式化字符串（1976-05-21）
     return date
 
 
