@@ -87,7 +87,7 @@ class BaseHttp(object):
         headers = self.__request_headers(header, request_body)
 
         response = requests.get(url, headers=headers, json=request_body)
-        self.check_response(response)
+        self.__check_response(response)
 
         response = json.loads(response.text)
         return response

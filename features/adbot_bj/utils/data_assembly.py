@@ -156,4 +156,4 @@ if __name__ == '__main__':
     pass
     # print(os.path.abspath(os.path.dirname(__file__)).split('adbot_bj')[0])
     # print(os.path.join(project_path,test-data,'file_name'))
-    print(assembly_data('product-deal-datas', 2))
+    print(assembly_data('card-orders', 20))
