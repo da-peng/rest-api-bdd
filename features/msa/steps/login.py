@@ -27,3 +27,4 @@ def step_impl(context, role, account, password):
 def step_impl(context):
     key = context.role
     add({key: context.token})
+

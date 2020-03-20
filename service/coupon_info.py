@@ -13,3 +13,7 @@ def get_coupon_info(db_name,tenant_code):
     connect.close()
     log.debug('coupon_ids:'+str(coupon_ids))
     return coupon_ids
+
+if __name__=='__main__':
+    get_coupon_info('msa_marketing', 'lqx')
+    print(get_coupon_info('msa_marketing','lqx'))

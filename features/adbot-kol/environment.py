@@ -23,6 +23,7 @@ def before_scenario(context, scenario):
 
     context.host = service_cap['URL']
     context.tenant_code = service_cap['TENANT_CODE']
+    context.headers={'token':read()[1][0]}
 
 def after_step(context, step):
     print()
