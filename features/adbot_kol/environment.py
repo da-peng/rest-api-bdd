@@ -1,9 +1,11 @@
 # encoding=utf-8
 from utils.config_parser import config as conf
-import os
 from utils.file_manage import *
+from features.adbot_kol.utils.token_manager import getLoginInfo
 
 lancome_conf_path = '/conf/adbot-bj/env.ini'
+
+
 # 如果环境不同则，则删除持久化文件，这个还未实现
 
 def before_scenario(context, scenario):
@@ -20,15 +22,17 @@ def before_scenario(context, scenario):
         service_cap = config['uat.service']
     elif env == 'pro':
         service_cap = config['pro.service']
-
     context.host = service_cap['URL']
     context.tenant_code = service_cap['TENANT_CODE']
-    context.headers={'token':read()[1][0]}
+    token = getLoginInfo('token')
+    context.headers = {'token': token}
+
 
 def after_step(context, step):
     print()
 
-# if __name__== '__main__':
+if __name__== '__main__':
+    print(getLoginInfo('token'))
 #     env_dict = os.environ
 #     env = env_dict.get('TestEnv')
 #     print(env)

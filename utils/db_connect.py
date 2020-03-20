@@ -14,7 +14,8 @@ class DbConnect(object):
                 port=3306,
                 user='amily',
                 password='amily.mysql.com',
-                database=db_name
+                database=db_name,
+                use_pure=True
             )
 
         except Exception as e:
