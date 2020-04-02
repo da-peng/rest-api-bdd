@@ -1,7 +1,8 @@
 # encoding=utf-8
-
 import os
 import csv
+
+
 
 
 class CSVManager(object):
@@ -28,12 +29,12 @@ class CSVManager(object):
             csv_writer = csv.writer(fp)
             count = 0
             for i in data:
-                if context != 0 and count >=1:
+                if context != 0 and count >= 1:
                     csv_writer.writerow(i)
                 count += 1
 
 
 if __name__ == '__main__':
-    fp = CSVManager('utils' + 'data.csv')
-    data = (['token', 'wechatSessionKey', 'wechatAccountId'], [1, 2, 3])
-    fp.write(data)
+    fp = CSVManager('/Users/grabby/PyCharm_Project/rest-api-bdd/features/adbot_bj/test-data/card-orders.csv')
+    # data = (['token', 'wechatSessionKey', 'wechatAccountId'], [1, 2, 3])
+    print([i for i in fp.read()])

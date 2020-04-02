@@ -13,23 +13,24 @@ import random
 
 
 def touchFileByParams(test_data_path, params, size):
-    keys = list(params.keys())
+    ParamHeader = list(params.keys())
     # keysName=';'.join(keys)+'\n'
-    vlaueType = []
+    ParamType = []
     if not os.path.exists(test_data_path):
-        for i in range(len(keys)):
-            if isinstance(params[keys[i]], str):
-                vlaueType.append('str')
-            elif isinstance(params[keys[i]], int):
-                vlaueType.append('int')
+        for i in range(len(ParamHeader)):
+            if isinstance(params[ParamHeader[i]], str):
+                ParamType.append('str')
+            elif isinstance(params[ParamHeader[i]], int):
+                ParamType.append('int')
         # lines= []
         # lines.append(keysName)
         # lines.append(';'.join(vlaueType))
         with open(test_data_path, 'w') as fp:
             csv_write = csv.writer(fp)
-            csv_write.writerow(keys)
-            csv_write.writerow(vlaueType)
-            generateTestData(keys, vlaueType, csv_write, size)
+            csv_write.writerow(ParamHeader)
+            csv_write.writerow(ParamType)
+
+            generateTestData(ParamHeader, ParamType, csv_write, size)
 
 
 

@@ -7,4 +7,4 @@ Feature: 微信小程序登录
     #await wx.login()
     Examples:
       | code                             | inviteCode  |
-      | 023RsjK11rXuaS1TTVK11kRAK11RsjKU | 10048626889 |
+      | 043Nl0hl25Ga5C0zMrkl2nV1hl2Nl0hD | 10048626889 |
