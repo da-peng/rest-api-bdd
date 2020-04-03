@@ -73,7 +73,8 @@ class DataInfo(object):
         condition_collections = self.__get_condition_collection()
         # print(condition_collections)
         # 根据边界值生成 边界测试数据
-        possible_data_collections = self.__generation_normal_data(condition_collections)
+        real_type = self.get_param_inner_real_type()
+        possible_data_collections = self.__generation_normal_data(real_type, condition_collections)
         # 穷举生成所有的数据
         test_data = self.get_two_dimension_array_exhaustion(possible_data_collections)
         # 将数据存回指定 _test_data_path
@@ -86,10 +87,11 @@ class DataInfo(object):
         """
         # 获取所有手工填写的边界条件
         condition_collections = self.__get_condition_collection()
+        real_type = self.get_param_inner_real_type()
         # 生成批量数据
         batch_data_collections = []
         for _ in range(batch_nums):
-            row_data = self.__generation_normal_data(condition_collections, True)
+            row_data = self.__generation_normal_data(real_type, condition_collections, True)
             batch_data_collections.append(row_data)
         # 将数据存回指定 _test_data_path
         CSVManager(self._test_data_path).write_by_two_dimension_array(batch_data_collections)
@@ -119,6 +121,10 @@ class DataInfo(object):
         """
         return self.get_one_line(2)[1:]
 
+    def get_param_inner_real_type(self):
+
+        return self.get_one_line(1)[1:]
+
     def get_one_line(self, n_rows):
         with open(self._test_data_path, 'r') as fp:
             reader = csv.reader(fp)
@@ -147,7 +153,7 @@ class DataInfo(object):
                 condition_collections.append(one_field_condition)
         return condition_collections
 
-    def __generation_normal_data(self, condition_collections, is_batch=False):
+    def __generation_normal_data(self, real_type, condition_collections, is_batch=False):
         """
         生成 正常数据
         :param
@@ -158,9 +164,10 @@ class DataInfo(object):
         """
         normal_data_list = []
         # total_rows = self.get_normal_data_collection_min_lines(condition_collection)
-
         for i in range(len(condition_collections)):
-            if self._param_type_list[i] == 'str':
+            if self._param_type_list[i] == 'str' and 'int' in real_type[i]:
+                fake_data = self.__get_normal_data_possible_nums('int', condition_collections[i], is_batch)
+            elif self._param_type_list[i] == 'str' and 'int' not in real_type[i]:
                 fake_data = self.__get_normal_data_possible_nums('str', condition_collections[i], is_batch)
             elif self._param_type_list[i] == 'int':
                 fake_data = self.__get_normal_data_possible_nums('int', condition_collections[i], is_batch)
