@@ -1,6 +1,9 @@
 import csv
 import xlrd
 
+from utils.data_factory import DataInfo
+
+
 class Param(object):
     def __init__(self, param_conf='{}'):
         # self.paramConf = json.loads(param_conf)
@@ -84,7 +87,7 @@ class CSV(Param):
             :return:
         """
         n_count_rows = self.param_rows_count()
-        n_count_cols = self.param_cols_count() # 这里是-1 去掉最后一列显示"预期结果"
+        n_count_cols = self.param_cols_count()  # 这里是-1 去掉最后一列显示"预期结果"
         param_all_list_dict = {}
         i_row_step = 3  # 从4行开始 组装数据
         i_col_step = 1  # 这里是从1 开始 去掉 说明 或 每行item
@@ -224,3 +227,4 @@ if __name__ == '__main__':
     path = '/Users/grabby/PyCharm_Project/rest-api-bdd/features/adbot_bj/test-data/card-orders.csv'
     search_param_dict = ParamFactory.choose_param('csv', {'file': path})
     print(search_param_dict.param_all_line_dict())
+
