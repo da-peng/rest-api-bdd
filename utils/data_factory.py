@@ -62,6 +62,7 @@ class DataInfo(object):
                 param_type_list.append('int')
         self._param_header_list = param_header_list
         self._param_type_list = param_type_list
+        self._global_number = 1
 
     def generate_data_in_border_exhaustion(self):
         """
@@ -125,6 +126,18 @@ class DataInfo(object):
 
         return self.get_one_line(1)[1:]
 
+    def get_param_type_from_csv(self):
+        param_type_list = []
+        for i in self.get_one_line(1)[1:]:
+            if ';' in i:
+                types = i.split(';')
+                param_type = types[0].strip()
+            else:
+                param_type = i
+            if param_type != '':
+                param_type_list.append(param_type)
+        return param_type_list
+
     def get_one_line(self, n_rows):
         with open(self._test_data_path, 'r') as fp:
             reader = csv.reader(fp)
@@ -165,12 +178,17 @@ class DataInfo(object):
         normal_data_list = []
         # total_rows = self.get_normal_data_collection_min_lines(condition_collection)
         for i in range(len(condition_collections)):
+            # 只有单独的 '>' '<' '>=' '<=' 才有 unique 其它的没有
+            if 'unique' in real_type[i]:  # 唯一 "一般都是id"，"时间唯一"
+                is_unique = True
+            else:
+                is_unique = False
             if self._param_type_list[i] == 'str' and 'int' in real_type[i]:
-                fake_data = self.__get_normal_data_possible_nums('int', condition_collections[i], is_batch)
+                fake_data = self.__get_normal_data_possible_nums('int', condition_collections[i], is_batch, is_unique)
             elif self._param_type_list[i] == 'str' and 'int' not in real_type[i]:
-                fake_data = self.__get_normal_data_possible_nums('str', condition_collections[i], is_batch)
+                fake_data = self.__get_normal_data_possible_nums('str', condition_collections[i], is_batch, is_unique)
             elif self._param_type_list[i] == 'int':
-                fake_data = self.__get_normal_data_possible_nums('int', condition_collections[i], is_batch)
+                fake_data = self.__get_normal_data_possible_nums('int', condition_collections[i], is_batch, is_unique)
             normal_data_list.append(fake_data)
         return normal_data_list
 
@@ -196,13 +214,14 @@ class DataInfo(object):
         cartesian_nums = reduce(lambda x, y: x * y, possible_number_list)
         return cartesian_nums
 
-    def __get_normal_data_possible_nums(self, types, condition, batch=False):
+    def __get_normal_data_possible_nums(self, types, condition, batch=False, is_unique=False):
         """
         根据约束条件获取，多有字段可能有的所有的正常 边界值
         :param types:
         :param condition:
         :return:
         """
+        # global global_number
         result = []
         data = []
         if '=' in condition:
@@ -218,7 +237,6 @@ class DataInfo(object):
                 data = [self.get_day_later(n_min),
                         self.get_random_date(n_min, n_max, '%Y-%m-%d'),
                         self.get_day_early(n_max)]
-
                 batch_result = self.get_random_date(n_min, n_max, '%Y-%m-%d')
 
             elif self.is_valid_date_time(n_min):
@@ -255,61 +273,130 @@ class DataInfo(object):
             n_min = condition['>']
             if self.is_valid_date(n_min):
                 data = [self.get_day_later(n_min)]
-                batch_result = self.get_day_later(n_min, random.randint(1, 20))
+                if is_unique:
+                    batch_result = self.get_day_later(n_min, self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_day_later(n_min, random.randint(1, 20))
             elif self.is_valid_date_time(n_min):
                 data = [self.get_hour_later(n_min)]
-                batch_result = self.get_hour_later(n_min, random.randint(1, 20))
+                if is_unique:
+                    batch_result = self.get_hour_later(n_min, self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_hour_later(n_min, random.randint(1, 20))
             elif types == 'str':
                 data = [self.get_random_string(int(n_min) + 2), self.get_random_string(int(n_min) + 1)]
-                batch_result = self.get_random_string(int(n_min) + 1)
+
+                if is_unique:
+                    batch_result = self.get_hour_later(n_min, self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_random_string(int(n_min) + 1)
+
             else:
                 data = [int(n_min) + 1, int(n_min) + 2]
-                batch_result = int(n_min) + random.randint(1, 20)
+                if is_unique:
+                    batch_result = int(n_min) + self._global_number
+                    self._global_number += 1
+                else:
+                    batch_result = int(n_min) + random.randint(1, 20)
+
         elif '<' in condition and '>' not in condition:
             n_max = condition['<']
 
             if self.is_valid_date(n_max):
                 data = [self.get_day_early(n_max)]
-                batch_result = self.get_day_early(n_max, -random.randint(1, 20))
+                if is_unique:
+                    batch_result = self.get_day_early(n_max, -self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_day_early(n_max, -random.randint(1, 20))
             elif self.is_valid_date_time(n_max):
                 data = [self.get_hour_early(n_max)]
-                batch_result = self.get_hour_early(n_max, -random.randint(1, 20))
+                if is_unique:
+                    batch_result = self.get_hour_early(n_max, -self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_hour_early(n_max, -random.randint(1, 20))
             elif types == 'str':
                 data = [self.get_random_string(int(n_max) - 2), self.get_random_string(int(n_max) - 1)]
-                batch_result = self.get_random_string(int(n_max) - random.randint(1, 20))
+                if is_unique:
+                    batch_result = self.get_random_string(int(n_max) - self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_random_string(int(n_max) - random.randint(1, 20))
             else:
                 data = [int(n_max) - 1, int(n_max) - 2]
-                batch_result = int(n_max) - random.randint(1, 20)
+                if is_unique:
+                    batch_result = int(n_max) - self._global_number
+                    self._global_number += 1
+                else:
+                    batch_result = int(n_max) - random.randint(1, 20)
         elif '>=' in condition and '<=' not in condition:
             n_min = condition['>=']
 
             if self.is_valid_date(n_min):
                 data = [n_min, self.get_day_later(n_min)]
-                batch_result = self.get_day_later(n_min, random.randint(1, 20))
+                if is_unique:
+                    batch_result = self.get_day_later(n_min, self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_day_later(n_min, random.randint(1, 20))
             elif self.is_valid_date_time(n_min):
                 data = [n_min, self.get_hour_later(n_min)]
-                batch_result = self.get_hour_later(n_min, random.randint(1, 20))
+                if is_unique:
+                    batch_result = self.get_hour_later(n_min, self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_hour_later(n_min, random.randint(1, 20))
             elif types == 'str':
+
                 data = [self.get_random_string(int(n_min) + 1), self.get_random_string(int(n_min))]
-                batch_result = self.get_random_string(int(n_min) + random.randint(1, 20))
+                if is_unique:
+                    batch_result = self.get_random_string(int(n_min) + self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_random_string(int(n_min) + random.randint(1, 20))
             else:
                 data = [int(n_min) + 1, int(n_min)]
-                batch_result = self.get_hour_later(n_min, random.randint(1, 20))
+                if is_unique:
+                    batch_result = self.get_hour_later(n_min, self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_hour_later(n_min, random.randint(1, 20))
         elif '<=' in condition and '>=' not in condition:
             n_max = condition['<=']
 
             if self.is_valid_date(n_max):
                 data = [n_max, self.get_day_early(n_max)]
-                batch_result = self.get_day_early(n_max, -random.randint(1, 20))
+                if is_unique:
+                    batch_result = self.get_day_early(n_max, -self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_day_early(n_max, -random.randint(1, 20))
             elif self.is_valid_date_time(n_max):
                 data = [n_max, self.get_hour_early(n_max)]
-                batch_result = self.get_hour_early(n_max, -random.randint(1, 20))
+                if is_unique:
+                    batch_result = self.get_hour_early(n_max, -self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_hour_early(n_max, -random.randint(1, 20))
             elif types == 'str':
                 data = [self.get_random_string(int(n_max) - 1), self.get_random_string(int(n_max))]
-                batch_result = self.get_random_string(int(n_max) - random.randint(1, 20))
+                if is_unique:
+                    batch_result = self.get_random_string(int(n_max) - self._global_number)
+                    self._global_number += 1
+                else:
+                    batch_result = self.get_random_string(int(n_max) - random.randint(1, 20))
             else:
                 data = [int(n_max) - 1, int(n_max)]
-                batch_result = int(n_max) - 1
+                if is_unique:
+                    batch_result = int(n_max) - self._global_number
+                    self._global_number += 1
+                else:
+                    batch_result = int(n_max) - 1
+
         result.extend(data)
         if batch:
             return batch_result
@@ -331,7 +418,6 @@ class DataInfo(object):
         for condition in conditions:
             if ';' in condition:
                 collection.extend(condition.split(';'))
-
             elif '>' in condition:
                 ret = condition.split('>')
                 ret.remove('')
@@ -354,7 +440,6 @@ class DataInfo(object):
             else:
                 if condition != '':
                     result['='].append(condition)
-
         if i >= 2:
             if result['='] == []:
                 result.pop('=')
@@ -452,8 +537,7 @@ class DataInfo(object):
                         s.extend(k)  # 1
                     else:
                         for j in k:  # 1
-                            s = []
-                            s.append(j)  # 1
+                            s = [j]
                     s.append(num)  # 5[1,5]
                     res.append(s)  # [1,5]
                 temp += res
@@ -474,6 +558,8 @@ if __name__ == '__main__':
     # array = dataInfo.__generation_normal_data(condition_collection)
     # dataInfo.create_data_flow()
     dataInfo.generate_data_in_border_batch(1000)
+    print(dataInfo.get_param_type_from_csv())
+    print(dataInfo.get_param_type_from_csv())
 
 # 前面2个进行正交，结果再跟后面的进行正交
 
