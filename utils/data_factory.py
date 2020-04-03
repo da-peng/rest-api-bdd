@@ -63,20 +63,36 @@ class DataInfo(object):
         self._param_header_list = param_header_list
         self._param_type_list = param_type_list
 
-    def create_data_flow(self):
+    def generate_data_in_border_exhaustion(self):
         """
         只有在写完所有的字段边界值后，才可以允许此处
+        穷举形式生成数据
         :return:
         """
         # 获取所有手工填写的边界条件
         condition_collections = self.__get_condition_collection()
-        print(condition_collections)
-        # 根据边界值生成所有可能的数据
+        # print(condition_collections)
+        # 根据边界值生成 边界测试数据
         possible_data_collections = self.__generation_normal_data(condition_collections)
         # 穷举生成所有的数据
         test_data = self.get_two_dimension_array_exhaustion(possible_data_collections)
         # 将数据存回指定 _test_data_path
         CSVManager(self._test_data_path).write_by_two_dimension_array(test_data)
+
+    def generate_data_in_border_batch(self, batch_nums):
+        """
+        生成数据以边界 批量生成
+        :return:
+        """
+        # 获取所有手工填写的边界条件
+        condition_collections = self.__get_condition_collection()
+        # 生成批量数据
+        batch_data_collections = []
+        for _ in range(batch_nums):
+            row_data = self.__generation_normal_data(condition_collections, True)
+            batch_data_collections.append(row_data)
+        # 将数据存回指定 _test_data_path
+        CSVManager(self._test_data_path).write_by_two_dimension_array(batch_data_collections)
 
     def __write_param_header_and_type(self):
         # 如果生成的测试数据文件不存在，则创建这个文件；
@@ -131,20 +147,23 @@ class DataInfo(object):
                 condition_collections.append(one_field_condition)
         return condition_collections
 
-    def __generation_normal_data(self, condition_collections):
+    def __generation_normal_data(self, condition_collections, is_batch=False):
         """
         生成 正常数据
-        :param condition_collections:
+        :param
+        condition_collections:
+        batch:是否是批量
+        nums :批量数量
         :return:
         """
-        global fake_data
         normal_data_list = []
         # total_rows = self.get_normal_data_collection_min_lines(condition_collection)
+
         for i in range(len(condition_collections)):
             if self._param_type_list[i] == 'str':
-                fake_data = self.__get_normal_data_possible_nums('str', condition_collections[i])
+                fake_data = self.__get_normal_data_possible_nums('str', condition_collections[i], is_batch)
             elif self._param_type_list[i] == 'int':
-                fake_data = self.__get_normal_data_possible_nums('int', condition_collections[i])
+                fake_data = self.__get_normal_data_possible_nums('int', condition_collections[i], is_batch)
             normal_data_list.append(fake_data)
         return normal_data_list
 
@@ -170,7 +189,7 @@ class DataInfo(object):
         cartesian_nums = reduce(lambda x, y: x * y, possible_number_list)
         return cartesian_nums
 
-    def __get_normal_data_possible_nums(self, types, condition):
+    def __get_normal_data_possible_nums(self, types, condition, batch=False):
         """
         根据约束条件获取，多有字段可能有的所有的正常 边界值
         :param types:
@@ -180,83 +199,115 @@ class DataInfo(object):
         result = []
         data = []
         if '=' in condition:
+            # 穷举 前的边界所有取值
             result.extend(condition['='])
+            # 批量随机取一个
+            batch_result = random.choices(condition['='])[0]
+
         elif '>' in condition and '<' in condition:
             n_min = condition['>']
             n_max = condition['<']
             if self.is_valid_date(n_min):
-                data = [self.get_one_day_later(n_min),
+                data = [self.get_day_later(n_min),
                         self.get_random_date(n_min, n_max, '%Y-%m-%d'),
-                        self.get_one_day_early(n_max)]
+                        self.get_day_early(n_max)]
+
+                batch_result = self.get_random_date(n_min, n_max, '%Y-%m-%d')
+
             elif self.is_valid_date_time(n_min):
-                data = [self.get_one_hour_later(n_min),
+                data = [self.get_hour_later(n_min),
                         self.get_random_date(n_min, n_max, '%Y-%m-%d %H:%M:%S'),
-                        self.get_one_hour_early(n_max)]
+                        self.get_hour_early(n_max)]
+                batch_result = self.get_random_date(n_min, n_max, '%Y-%m-%d')
             elif types == 'str':
                 nums = random.randint(int(n_min), int(n_max))
                 data = [self.get_random_string(int(n_min + 1)), self.get_random_string(nums),
                         self.get_random_string(int(n_max - 1))]
+                batch_result = self.get_random_string(nums)
             else:
                 data = [int(n_min) + 1, random.randint(int(n_min), int(n_max)), int(n_max) - 1]
+                batch_result = random.randint(int(n_min), int(n_max))
         elif '<=' in condition and '>=' in condition:
             n_min = condition['>=']
             n_max = condition['<=']
             if self.is_valid_date(n_min):
                 data = [n_min, self.get_random_date(n_min, n_max, '%Y-%m-%d'), n_max]
+                batch_result = self.get_random_date(n_min, n_max, '%Y-%m-%d')
             elif self.is_valid_date_time(n_min):
                 data = [n_min, self.get_random_date(n_min, n_max, '%Y-%m-%d %H:%M:%S'), n_max]
+                batch_result = self.get_random_date(n_min, n_max, '%Y-%m-%d %H:%M:%S')
             elif types == 'str':
                 nums = random.randint(int(n_min), int(n_max))
                 data = [self.get_random_string(int(n_min)), self.get_random_string(nums),
                         self.get_random_string(int(n_max))]
+                batch_result = self.get_random_string(nums)
             else:
                 data = [int(n_min), random.randint(int(n_min), int(n_max)), int(n_max)]
-
+                batch_result = random.randint(int(n_min), int(n_max))
         if '>' in condition and '<' not in condition:
             n_min = condition['>']
             if self.is_valid_date(n_min):
-                data = [self.get_one_day_later(n_min)]
+                data = [self.get_day_later(n_min)]
+                batch_result = self.get_day_later(n_min, random.randint(1, 20))
             elif self.is_valid_date_time(n_min):
-                data = [self.get_one_hour_later(n_min)]
+                data = [self.get_hour_later(n_min)]
+                batch_result = self.get_hour_later(n_min, random.randint(1, 20))
             elif types == 'str':
                 data = [self.get_random_string(int(n_min) + 2), self.get_random_string(int(n_min) + 1)]
+                batch_result = self.get_random_string(int(n_min) + 1)
             else:
                 data = [int(n_min) + 1, int(n_min) + 2]
+                batch_result = int(n_min) + random.randint(1, 20)
         elif '<' in condition and '>' not in condition:
             n_max = condition['<']
 
             if self.is_valid_date(n_max):
-                data = [self.get_one_day_early(n_max)]
+                data = [self.get_day_early(n_max)]
+                batch_result = self.get_day_early(n_max, -random.randint(1, 20))
             elif self.is_valid_date_time(n_max):
-                data = [self.get_one_hour_early(n_max)]
+                data = [self.get_hour_early(n_max)]
+                batch_result = self.get_hour_early(n_max, -random.randint(1, 20))
             elif types == 'str':
                 data = [self.get_random_string(int(n_max) - 2), self.get_random_string(int(n_max) - 1)]
+                batch_result = self.get_random_string(int(n_max) - random.randint(1, 20))
             else:
                 data = [int(n_max) - 1, int(n_max) - 2]
+                batch_result = int(n_max) - random.randint(1, 20)
         elif '>=' in condition and '<=' not in condition:
             n_min = condition['>=']
 
             if self.is_valid_date(n_min):
-                data = [n_min, self.get_one_day_later(n_min)]
+                data = [n_min, self.get_day_later(n_min)]
+                batch_result = self.get_day_later(n_min, random.randint(1, 20))
             elif self.is_valid_date_time(n_min):
-                data = [n_min, self.get_one_hour_later(n_min)]
+                data = [n_min, self.get_hour_later(n_min)]
+                batch_result = self.get_hour_later(n_min, random.randint(1, 20))
             elif types == 'str':
                 data = [self.get_random_string(int(n_min) + 1), self.get_random_string(int(n_min))]
+                batch_result = self.get_random_string(int(n_min) + random.randint(1, 20))
             else:
                 data = [int(n_min) + 1, int(n_min)]
+                batch_result = self.get_hour_later(n_min, random.randint(1, 20))
         elif '<=' in condition and '>=' not in condition:
             n_max = condition['<=']
 
             if self.is_valid_date(n_max):
-                data = [n_max, self.get_one_day_early(n_max)]
+                data = [n_max, self.get_day_early(n_max)]
+                batch_result = self.get_day_early(n_max, -random.randint(1, 20))
             elif self.is_valid_date_time(n_max):
-                data = [n_max, self.get_one_hour_early(n_max)]
+                data = [n_max, self.get_hour_early(n_max)]
+                batch_result = self.get_hour_early(n_max, -random.randint(1, 20))
             elif types == 'str':
                 data = [self.get_random_string(int(n_max) - 1), self.get_random_string(int(n_max))]
+                batch_result = self.get_random_string(int(n_max) - random.randint(1, 20))
             else:
                 data = [int(n_max) - 1, int(n_max)]
+                batch_result = int(n_max) - 1
         result.extend(data)
-        return result
+        if batch:
+            return batch_result
+        else:
+            return result
 
     def __get_one_field_condition(self, conditions=[], i=1, result=None):
         """
@@ -335,23 +386,23 @@ class DataInfo(object):
             return False
 
     @staticmethod
-    def get_one_day_later(date, fmt="%Y-%m-%d"):
-        date_time = datetime.datetime.strptime(date, fmt) + datetime.timedelta(days=1)
+    def get_day_later(date, days=1, fmt="%Y-%m-%d"):
+        date_time = datetime.datetime.strptime(date, fmt) + datetime.timedelta(days=days)
         return date_time.strftime(fmt)
 
     @staticmethod
-    def get_one_hour_later(date_time, fmt="%Y-%m-%d %H:%M:%S"):
-        new_date_time = datetime.datetime.strptime(date_time, fmt) + datetime.timedelta(hours=1)
+    def get_hour_later(date_time, hours=1, fmt="%Y-%m-%d %H:%M:%S"):
+        new_date_time = datetime.datetime.strptime(date_time, fmt) + datetime.timedelta(hours=hours)
         return new_date_time.strftime(fmt)
 
     @staticmethod
-    def get_one_day_early(date, fmt="%Y-%m-%d"):
-        date_time = datetime.datetime.strptime(date, fmt) + datetime.timedelta(days=-1)
+    def get_day_early(date, days=-1, fmt="%Y-%m-%d"):
+        date_time = datetime.datetime.strptime(date, fmt) + datetime.timedelta(days=days)
         return date_time.strftime(fmt)
 
     @staticmethod
-    def get_one_hour_early(date_time, fmt="%Y-%m-%d %H:%M:%S"):
-        new_date_time = datetime.datetime.strptime(date_time, fmt) + datetime.timedelta(hours=-1)
+    def get_hour_early(date_time, hours=-1, fmt="%Y-%m-%d %H:%M:%S"):
+        new_date_time = datetime.datetime.strptime(date_time, fmt) + datetime.timedelta(hours=hours)
         return new_date_time.strftime(fmt)
 
     @staticmethod
@@ -414,10 +465,8 @@ if __name__ == '__main__':
     # condition_collection = dataInfo
     # print(condition_collection)
     # array = dataInfo.__generation_normal_data(condition_collection)
-    dataInfo.create_data_flow()
-
-
-
+    # dataInfo.create_data_flow()
+    dataInfo.generate_data_in_border_batch(1000)
 
 # 前面2个进行正交，结果再跟后面的进行正交
 
