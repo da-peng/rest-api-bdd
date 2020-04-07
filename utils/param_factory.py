@@ -98,9 +98,14 @@ class CSV(Param):
             param_one_line_dict = {}
             while i_col_step < n_count_cols:
                 try:
-                    if param_type[i_col_step] == 'str':
+                    multi_types = param_type[i_col_step]
+                    if ';' in multi_types:
+                        multi_type = multi_types.split(';')[0].strip()
+                    else:
+                        multi_type = param_type[i_col_step].strip()
+                    if multi_type == 'str':
                         value = str(param_one_line_list[i_col_step])
-                    elif param_type[i_col_step] == 'int':
+                    elif multi_type == 'int':
                         value = int(param_one_line_list[i_col_step])
                 except Exception as e:
                     raise Exception('')
@@ -227,4 +232,3 @@ if __name__ == '__main__':
     path = '/Users/grabby/PyCharm_Project/rest-api-bdd/features/adbot_bj/test-data/card-orders.csv'
     search_param_dict = ParamFactory.choose_param('csv', {'file': path})
     print(search_param_dict.param_all_line_dict())
-

@@ -5,7 +5,7 @@ import os
 import random
 import time
 from functools import reduce
-
+import pandas as pd
 from utils.csv_manage import CSVManager
 
 
@@ -14,7 +14,7 @@ class DataFactory(object):
     普通边界条件的测试数据生成工程
     例如：
     int类型是值
-    a>=10;a<=20
+    a>=10;a<=scope
     b<=10;b<=30
     str类型是日期
     也是值
@@ -97,6 +97,29 @@ class DataInfo(object):
         # 将数据存回指定 _test_data_path
         CSVManager(self._test_data_path).write_by_two_dimension_array(batch_data_collections)
 
+    @staticmethod
+    def merge_data_with_example_data(sample_data, target_file):
+        """
+        合并示例文件,将sample_data 中的参数全部替换到 target_file 中
+        :param sample_data:
+        :param target_file:
+        :return:
+        """
+        _sample_data = pd.read_csv(sample_data)
+        _target_data = pd.read_csv(target_file)
+        for i in _sample_data.columns:
+            try:
+                if i in _target_data.columns:
+                    _index = _target_data.columns.get_loc(i)
+                    _tmp = _target_data.drop([i], axis=1)
+                    _tmp.insert(_index, i, _sample_data[i].astype('str'))
+            except Exception as e:
+                continue
+                # print(e)
+        if not _tmp.empty:
+            _tmp.to_csv(target_file, index=0)
+        return _tmp
+
     def __write_param_header_and_type(self):
         # 如果生成的测试数据文件不存在，则创建这个文件；
         # 第一行为字段名称
@@ -166,7 +189,7 @@ class DataInfo(object):
                 condition_collections.append(one_field_condition)
         return condition_collections
 
-    def __generation_normal_data(self, real_type, condition_collections, is_batch=False):
+    def __generation_normal_data(self, real_type, condition_collections, is_batch=False, scope=100):
         """
         生成 正常数据
         :param
@@ -184,11 +207,14 @@ class DataInfo(object):
             else:
                 is_unique = False
             if self._param_type_list[i] == 'str' and 'int' in real_type[i]:
-                fake_data = self.__get_normal_data_possible_nums('int', condition_collections[i], is_batch, is_unique)
+                fake_data = self.__get_normal_data_possible_nums('int', scope, condition_collections[i], is_batch,
+                                                                 is_unique)
             elif self._param_type_list[i] == 'str' and 'int' not in real_type[i]:
-                fake_data = self.__get_normal_data_possible_nums('str', condition_collections[i], is_batch, is_unique)
+                fake_data = self.__get_normal_data_possible_nums('str', scope, condition_collections[i], is_batch,
+                                                                 is_unique)
             elif self._param_type_list[i] == 'int':
-                fake_data = self.__get_normal_data_possible_nums('int', condition_collections[i], is_batch, is_unique)
+                fake_data = self.__get_normal_data_possible_nums('int', scope, condition_collections[i], is_batch,
+                                                                 is_unique)
             normal_data_list.append(fake_data)
         return normal_data_list
 
@@ -214,7 +240,7 @@ class DataInfo(object):
         cartesian_nums = reduce(lambda x, y: x * y, possible_number_list)
         return cartesian_nums
 
-    def __get_normal_data_possible_nums(self, types, condition, batch=False, is_unique=False):
+    def __get_normal_data_possible_nums(self, types, scope, condition, batch=False, is_unique=False):
         """
         根据约束条件获取，多有字段可能有的所有的正常 边界值
         :param types:
@@ -277,14 +303,14 @@ class DataInfo(object):
                     batch_result = self.get_day_later(n_min, self._global_number)
                     self._global_number += 1
                 else:
-                    batch_result = self.get_day_later(n_min, random.randint(1, 20))
+                    batch_result = self.get_day_later(n_min, random.randint(1, scope))
             elif self.is_valid_date_time(n_min):
                 data = [self.get_hour_later(n_min)]
                 if is_unique:
                     batch_result = self.get_hour_later(n_min, self._global_number)
                     self._global_number += 1
                 else:
-                    batch_result = self.get_hour_later(n_min, random.randint(1, 20))
+                    batch_result = self.get_hour_later(n_min, random.randint(1, scope))
             elif types == 'str':
                 data = [self.get_random_string(int(n_min) + 2), self.get_random_string(int(n_min) + 1)]
 
@@ -300,7 +326,7 @@ class DataInfo(object):
                     batch_result = int(n_min) + self._global_number
                     self._global_number += 1
                 else:
-                    batch_result = int(n_min) + random.randint(1, 20)
+                    batch_result = int(n_min) + random.randint(1, scope)
 
         elif '<' in condition and '>' not in condition:
             n_max = condition['<']
@@ -311,28 +337,28 @@ class DataInfo(object):
                     batch_result = self.get_day_early(n_max, -self._global_number)
                     self._global_number += 1
                 else:
-                    batch_result = self.get_day_early(n_max, -random.randint(1, 20))
+                    batch_result = self.get_day_early(n_max, -random.randint(1, scope))
             elif self.is_valid_date_time(n_max):
                 data = [self.get_hour_early(n_max)]
                 if is_unique:
                     batch_result = self.get_hour_early(n_max, -self._global_number)
                     self._global_number += 1
                 else:
-                    batch_result = self.get_hour_early(n_max, -random.randint(1, 20))
+                    batch_result = self.get_hour_early(n_max, -random.randint(1, scope))
             elif types == 'str':
                 data = [self.get_random_string(int(n_max) - 2), self.get_random_string(int(n_max) - 1)]
                 if is_unique:
                     batch_result = self.get_random_string(int(n_max) - self._global_number)
                     self._global_number += 1
                 else:
-                    batch_result = self.get_random_string(int(n_max) - random.randint(1, 20))
+                    batch_result = self.get_random_string(int(n_max) - random.randint(1, scope))
             else:
                 data = [int(n_max) - 1, int(n_max) - 2]
                 if is_unique:
                     batch_result = int(n_max) - self._global_number
                     self._global_number += 1
                 else:
-                    batch_result = int(n_max) - random.randint(1, 20)
+                    batch_result = int(n_max) - random.randint(1, scope)
         elif '>=' in condition and '<=' not in condition:
             n_min = condition['>=']
 
@@ -342,14 +368,14 @@ class DataInfo(object):
                     batch_result = self.get_day_later(n_min, self._global_number)
                     self._global_number += 1
                 else:
-                    batch_result = self.get_day_later(n_min, random.randint(1, 20))
+                    batch_result = self.get_day_later(n_min, random.randint(1, scope))
             elif self.is_valid_date_time(n_min):
                 data = [n_min, self.get_hour_later(n_min)]
                 if is_unique:
                     batch_result = self.get_hour_later(n_min, self._global_number)
                     self._global_number += 1
                 else:
-                    batch_result = self.get_hour_later(n_min, random.randint(1, 20))
+                    batch_result = self.get_hour_later(n_min, random.randint(1, scope))
             elif types == 'str':
 
                 data = [self.get_random_string(int(n_min) + 1), self.get_random_string(int(n_min))]
@@ -357,14 +383,14 @@ class DataInfo(object):
                     batch_result = self.get_random_string(int(n_min) + self._global_number)
                     self._global_number += 1
                 else:
-                    batch_result = self.get_random_string(int(n_min) + random.randint(1, 20))
+                    batch_result = self.get_random_string(int(n_min) + random.randint(1, scope))
             else:
                 data = [int(n_min) + 1, int(n_min)]
                 if is_unique:
                     batch_result = self.get_hour_later(n_min, self._global_number)
                     self._global_number += 1
                 else:
-                    batch_result = self.get_hour_later(n_min, random.randint(1, 20))
+                    batch_result = self.get_hour_later(n_min, random.randint(1, scope))
         elif '<=' in condition and '>=' not in condition:
             n_max = condition['<=']
 
@@ -374,21 +400,21 @@ class DataInfo(object):
                     batch_result = self.get_day_early(n_max, -self._global_number)
                     self._global_number += 1
                 else:
-                    batch_result = self.get_day_early(n_max, -random.randint(1, 20))
+                    batch_result = self.get_day_early(n_max, -random.randint(1, scope))
             elif self.is_valid_date_time(n_max):
                 data = [n_max, self.get_hour_early(n_max)]
                 if is_unique:
                     batch_result = self.get_hour_early(n_max, -self._global_number)
                     self._global_number += 1
                 else:
-                    batch_result = self.get_hour_early(n_max, -random.randint(1, 20))
+                    batch_result = self.get_hour_early(n_max, -random.randint(1, scope))
             elif types == 'str':
                 data = [self.get_random_string(int(n_max) - 1), self.get_random_string(int(n_max))]
                 if is_unique:
                     batch_result = self.get_random_string(int(n_max) - self._global_number)
                     self._global_number += 1
                 else:
-                    batch_result = self.get_random_string(int(n_max) - random.randint(1, 20))
+                    batch_result = self.get_random_string(int(n_max) - random.randint(1, scope))
             else:
                 data = [int(n_max) - 1, int(n_max)]
                 if is_unique:
@@ -558,9 +584,38 @@ if __name__ == '__main__':
     # array = dataInfo.__generation_normal_data(condition_collection)
     # dataInfo.create_data_flow()
     dataInfo.generate_data_in_border_batch(1000)
-    print(dataInfo.get_param_type_from_csv())
-    print(dataInfo.get_param_type_from_csv())
+    # print(dataInfo.get_param_type_from_csv())
 
+    # print(DataInfo.merge_data_with_example_data(testDataFile + '/example.csv', testDataFile + '/card-orders.csv'))
+
+    # df = pd.read_csv(testDataFile + '/example.csv')
+    # # print(df.columns)
+    # new_columns = df['phone']
+    # # print(data1.loc[:, ['phone']])
+    # # source = data1.loc[:, ['phone']]
+    # # print(new_columns, type(new_columns))
+    #
+    # data = pd.read_csv(testDataFile + '/card-orders.csv')
+    #
+    # print(data.columns)
+    # old_columns = data['phone']
+    #
+    # index = data.columns.get_loc("phone")
+    # tmp = data.drop(['phone'], axis=1)
+    # print(tmp)
+    # print(data)
+
+    # tmp.insert(index, 'phone', new_columns)
+    # print(tmp)
+    # print(tmp.columns)
+
+    # print(data.loc[:, ['phone']])
+    # data.loc[:, ['phone']] = source
+    # print(data.loc[:, ['phone']])
+
+    # 自动生成日期序列
+    # date = pd.date_range('scope18-02-27', periods=data.shape[0], freq='B')
+    # print(date)
 # 前面2个进行正交，结果再跟后面的进行正交
 
 # input_list = [[1, 2, 3], [5, 6], [7, 8, 9], [10, 11]]
@@ -568,9 +623,9 @@ if __name__ == '__main__':
 
 # dataFactory.write_param_header_and_type()
 
-# {'=': ['200', '100', '1000'], 'value': ['100', '200', '300', '500'], '>=': '200', '<=': '100', '<': '100',
-# '>': '200'}
+# {'=': ['scope0', '100', '1000'], 'value': ['100', 'scope0', '300', '500'], '>=': 'scope0', '<=': '100', '<': '100',
+# '>': 'scope0'}
 # print([i for i in range(3)])
 # print([i for i in range(1, 3)])
-# print(dataInfo.get_random_date('2012-12-31', '2013-1-20', '%Y-%m-%d'))
-# print(dataInfo.get_one_day_early('2012-12-31'))
+# print(dataInfo.get_random_date('scope12-12-31', 'scope13-1-scope', '%Y-%m-%d'))
+# print(dataInfo.get_one_day_early('scope12-12-31'))
