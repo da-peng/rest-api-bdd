@@ -6,6 +6,7 @@ from utils.log_manage import Log as log
 
 request_status = []
 
+
 class BaseHttp(object):
 
     def __init__(self, ):
@@ -25,6 +26,7 @@ class BaseHttp(object):
             log.debug(json.dumps(json.loads(response.text), indent=2, ensure_ascii=False))
         except Exception as e:
             if response.text != '':
+                log.debug(response.text)
                 raise Exception("Response Body ContentType is not Json")
             else:
                 raise Exception("Response Body is none String")
@@ -64,19 +66,21 @@ class BaseHttp(object):
         try:
             response = requests.post(url, headers=headers, json=request_body)
         except Exception as e:
-            print('Connection Error %s' %str(e))
-            raise  Exception('Connection Error %s' %str(e))
+            print('Connection Error %s' % str(e))
+            raise Exception('Connection Error %s' % str(e))
         self.__check_response(response)
         response = json.loads(response.text)
-        try:
-            statusCode = response['statusCode']
-        except Exception as e:
-            print(e)
-        global request_status
-        if statusCode != '20000':
-            request_status.append(0)
-        else:
-            request_status.append(1)
+
+        if 'statusCode' in response:
+            try:
+                status_code = response['statusCode']
+            except Exception as e:
+                print(e)
+            global request_status
+            if status_code != '20000':
+                request_status.append(0)
+            else:
+                request_status.append(1)
         return response
 
     def get(self, request_body, url, header={}):
@@ -91,8 +95,6 @@ class BaseHttp(object):
 
         response = json.loads(response.text)
         return response
-
-
 
     def form_post(self, request_body, url, header={}):
         # value = self.getConfig(key)

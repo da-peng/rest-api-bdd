@@ -1,8 +1,6 @@
 import csv
 import xlrd
 
-from utils.data_factory import DataInfo
-
 
 class Param(object):
     def __init__(self, param_conf='{}'):

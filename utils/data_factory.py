@@ -272,8 +272,8 @@ class DataInfo(object):
                 batch_result = self.get_random_date(n_min, n_max, '%Y-%m-%d')
             elif types == 'str':
                 nums = random.randint(int(n_min), int(n_max))
-                data = [self.get_random_string(int(n_min + 1)), self.get_random_string(nums),
-                        self.get_random_string(int(n_max - 1))]
+                data = [self.get_random_string(int(n_min) + 1), self.get_random_string(nums),
+                        self.get_random_string(int(n_max) - 1)]
                 batch_result = self.get_random_string(nums)
             else:
                 data = [int(n_min) + 1, random.randint(int(n_min), int(n_max)), int(n_max) - 1]
@@ -289,9 +289,9 @@ class DataInfo(object):
                 batch_result = self.get_random_date(n_min, n_max, '%Y-%m-%d %H:%M:%S')
             elif types == 'str':
                 nums = random.randint(int(n_min), int(n_max))
-                data = [self.get_random_string(int(n_min)), self.get_random_string(nums),
+                data = [self.get_random_string(int(n_min)), self.get_random_string(int(nums)),
                         self.get_random_string(int(n_max))]
-                batch_result = self.get_random_string(nums)
+                batch_result = self.get_random_string(int(nums))
             else:
                 data = [int(n_min), random.randint(int(n_min), int(n_max)), int(n_max)]
                 batch_result = random.randint(int(n_min), int(n_max))
@@ -583,6 +583,7 @@ if __name__ == '__main__':
     # print(condition_collection)
     # array = dataInfo.__generation_normal_data(condition_collection)
     # dataInfo.create_data_flow()
+    # dataInfo.generate_data_in_border_exhaustion()
     dataInfo.generate_data_in_border_batch(1000)
     # print(dataInfo.get_param_type_from_csv())
 

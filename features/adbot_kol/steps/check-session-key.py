@@ -8,7 +8,7 @@ get=BaseHttp().get
 
 
 @Given(u'访问检查wechatSessionKey是否有效接口{path}')
-def steps(context,path):
+def steps(context, path):
     path_list = re.split('{|}', path)
     path_list[1] = context.tenant_code
     context.url = context.host + ''.join(path_list)
