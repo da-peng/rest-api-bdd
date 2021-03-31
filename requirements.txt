@@ -15,7 +15,7 @@ freeze==1.0.10
 get==2019.4.13
 idna==2.8
 importlib-metadata==0.18
-lxml==4.3.4
+lxml==4.6.3
 more-itertools==7.1.0
 mysql-connector-python==8.0.16
 namedlist==1.7
